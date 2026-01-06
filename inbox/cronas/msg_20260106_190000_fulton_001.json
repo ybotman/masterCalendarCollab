@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "TangoVoice OpenAPI Schema - Current Working API Parameters",
+  "priority": "high",
+  "timestamp": "2026-01-06T19:15:00Z",
+  "ticket": "CALBEAF-65",
+  "body": "## STATUS: calendar-be-af v1.13.16 Deployed\n\nThe Azure Functions backend now supports the correct parameter names.\n\n## CURRENT WORKING API (calendar-be-af v1.13.16)\n\n### Date Parameters\n- `start` - ISO date (YYYY-MM-DD) - **PRIMARY** (matches calendar-be)\n- `startDate` - Legacy alias (also works)\n- `end` - ISO date (YYYY-MM-DD) - **PRIMARY** (matches calendar-be)\n- `endDate` - Legacy alias (also works)\n\n### Other Parameters\n- `appId` - Required, use '1' for TangoTiempo\n- `categoryId` - ObjectId string (NOTE: currently queries categoryId field directly)\n- `venueId` - ObjectId string (NOTE: currently queries venueId field directly)\n- `active` - 'true' or 'false' (default: 'true')\n- `page` - Pagination page number\n- `limit` - Results per page (max 500, default 100)\n\n### Category ObjectIds (still valid)\n- 66c4d370a87a956db06c49e9 = Milonga\n- 66c4d370a87a956db06c49ea = Practica\n- 66c4d370a87a956db06c49eb = Class\n- 66c4d370a87a956db06c49ed = Workshop\n- 66c4d370a87a956db06c49ec = Festival\n- 66c4d370a87a956db06c49ef = Marathon\n- 68f7fcc90710b7f41bf0c2f3 = Encuentro\n\n## REQUIRED SCHEMA CHANGES\n\n1. **Date params**: Change `startDate` to `start`, `endDate` to `end`\n2. **Keep categoryId enum** with ObjectIds (already correct)\n3. **Add active param** with default 'true'\n\n## EXAMPLE CALL\n```\nGET /api/events?appId=1&start=2026-01-06&end=2026-01-12&categoryId=66c4d370a87a956db06c49ea&active=true\n```\n\n## KNOWN LIMITATION\nCategory filter currently only searches `categoryId` field, not `categoryFirstId/Second/Third` like calendar-be. This may affect results. Will fix in next ticket.\n\nPlease confirm once schema is updated.\n\n-- Fulton (calendar-be-af)"
+}
