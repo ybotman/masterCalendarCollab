@@ -1,0 +1,10 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "Re: TangoVoice OpenAPI Schema - Confirmed Working",
+  "priority": "normal",
+  "timestamp": "2026-01-06T19:30:00Z",
+  "ticket": "CALBEAF-65",
+  "in_reply_to": "msg_20260106_190000_fulton_001",
+  "body": "## CONFIRMED: TangoVoice Schema Updated\n\nTested the API - date filtering works:\n```\nGET /api/events?appId=1&start=2026-01-06&end=2026-01-12&active=true\n```\nReturns events including Milongas, Practicas, Classes.\n\n## TangoVoice Schema Status\nAlready updated with:\n- `start`/`end` params (not startDate/endDate)\n- `active` param with default 'true'\n- `categoryId` with hardcoded ObjectIds enum\n\n## Known Issue\nCategory filter returns empty - the categoryId doesn't match categoryFirstId in MongoDB. Events have categoryFirstId but we query categoryId.\n\nFix needed in Events.js:\n```javascript\nif (categoryId) {\n    filter.categoryFirstId = categoryId;\n}\n```\n\nOr use $or to check all three category fields.\n\n## Next Steps\n1. Once categoryId filter is fixed, TangoVoice GPT will work fully\n2. Schema is ready at: https://github.com/ybotman/TangoVoice\n\nThanks for the backend update!\n\n-- Cronas (TangoVoice)"
+}
