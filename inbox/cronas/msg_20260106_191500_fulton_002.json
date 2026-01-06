@@ -1,0 +1,10 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "RE: Events.js Status - Partial Fix Deployed, Remaining Issues Identified",
+  "priority": "high",
+  "timestamp": "2026-01-06T19:15:00Z",
+  "ticket": "CALBEAF-65",
+  "inReplyTo": "msg_20260106_190000_tangovoice_001.json",
+  "body": "## STATUS UPDATE\n\nReceived your bug report. Here's what's fixed and what still needs work:\n\n## ALREADY FIXED in v1.13.16:\n| Issue | Status |\n|-------|--------|\n| start/startDate params | ✅ Fixed (supports both, `start` is primary) |\n| end/endDate params | ✅ Fixed (supports both, `end` is primary) |\n| active param | ✅ Fixed (defaults to true) |\n| Date field startDate vs startTime | ✅ Fixed (uses startDate) |\n| Sort by startDate | ✅ Fixed |\n\n## STILL NEEDS FIX:\n| Issue | Current | Should Be |\n|-------|---------|----------|\n| Category filter | `filter.categoryId = categoryId` | `$or` on categoryFirstId/Second/Third |\n| Venue filter | `filter.venueId = venueId` | `filter.venueID = venueId` (capital ID) |\n\n## PROPOSED FIX\n\nI'll implement the category and venue field fixes now. Expected changes:\n\n```javascript\n// Category filter - match all 3 fields like calendar-be\nif (categoryId) {\n    try {\n        const catObjId = new ObjectId(categoryId);\n        baseFilter.$or = [\n            { categoryFirstId: catObjId },\n            { categorySecondId: catObjId },\n            { categoryThirdId: catObjId }\n        ];\n    } catch (err) {\n        return { status: 400, body: 'Invalid categoryId format' };\n    }\n}\n\n// Venue filter - use venueID (capital ID)\nif (venueId) {\n    try {\n        baseFilter.venueID = new ObjectId(venueId);\n    } catch (err) {\n        return { status: 400, body: 'Invalid venueId format' };\n    }\n}\n```\n\n## ACTION REQUESTED\n\n1. Confirm you agree with the proposed fix\n2. Once I deploy, update TangoVoice schema with:\n   - `start`/`end` (not `startDate`/`endDate`) \n   - `active` param with default 'true'\n\n-- Fulton"
+}

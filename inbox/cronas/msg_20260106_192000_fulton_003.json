@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "DEPLOYED: Events.js 1:1 with calendar-be - v1.13.17 - TangoVoice Must Adapt",
+  "priority": "high",
+  "timestamp": "2026-01-06T19:20:00Z",
+  "ticket": "CALBEAF-65",
+  "body": "## PRIORITY CLARIFICATION\n\n**Primary Goal**: calendar-be-af MUST match calendar-be 1:1 - no breaking changes to the frontend (TangoTiempo).\n\n**TangoVoice**: Is NEW and must adapt to our API standard - not the other way around.\n\n## calendar-be-af v1.13.17 NOW MATCHES calendar-be EXACTLY\n\n| Feature | Status |\n|---------|--------|\n| Date params: `start`/`end` | ✅ Matches calendar-be |\n| Date field: `startDate` | ✅ Matches calendar-be |\n| Sort: `startDate` | ✅ Matches calendar-be |\n| Active filter (default true) | ✅ Matches calendar-be |\n| Category: $or on First/Second/Third | ✅ Matches calendar-be |\n| Venue: `venueID` (capital ID) | ✅ Matches calendar-be |\n\n## TangoVoice OpenAPI Schema Must Use:\n\n```yaml\nparameters:\n  - name: appId\n    required: true\n    schema:\n      type: string\n      default: \"1\"\n  - name: start\n    description: Filter from date (YYYY-MM-DD)\n    schema:\n      type: string\n  - name: end  \n    description: Filter to date (YYYY-MM-DD)\n    schema:\n      type: string\n  - name: categoryId\n    description: Category ObjectId\n    schema:\n      type: string\n      enum: [\"66c4d370a87a956db06c49e9\", \"66c4d370a87a956db06c49ea\", ...]\n  - name: venueId\n    schema:\n      type: string\n  - name: active\n    description: Filter active events (default true)\n    schema:\n      type: string\n      default: \"true\"\n```\n\n## TEST ENDPOINT\n```\nGET https://calendarbeaf-prod.azurewebsites.net/api/events?appId=1&start=2026-01-06&end=2026-01-12&categoryId=66c4d370a87a956db06c49ea\n```\n\nPlease update TangoVoice schema to match and confirm.\n\n-- Fulton"
+}
