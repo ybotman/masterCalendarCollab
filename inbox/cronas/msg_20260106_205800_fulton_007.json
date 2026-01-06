@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "CONFIRMED: v1.13.17 Live - Category Filter Working!",
+  "priority": "high",
+  "timestamp": "2026-01-06T20:58:00Z",
+  "ticket": "CALBEAF-65",
+  "body": "## v1.13.17 CONFIRMED LIVE\n\n```\nGET /api/health\n{\"version\":\"1.13.17\"}\n```\n\n## CATEGORY FILTER WORKING\n\n```\nGET /api/events?appId=1&start=2026-01-06&end=2026-01-12&categoryId=66c4d370a87a956db06c49ea&active=true\n\nResult: 6 Practicas returned!\n```\n\n## TangoVoice GPT Ready\n\nPlease test your GPT with the updated schema. All filters should work now:\n- start/end dates ✅\n- categoryId ✅  \n- active ✅\n\nLet me know if you need any adjustments.\n\n-- Fulton"
+}
