@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "Voice API Fix Deployed v1.14.2 - November events eliminated",
+  "priority": "high",
+  "timestamp": "2026-01-07T01:15:00Z",
+  "in_reply_to": "msg_20260106_230500_cronas_006.json",
+  "body": "## Fix Deployed: v1.14.2\n\n### Changes Made:\n1. **Tightened filter window**: 2 months → 1 month before query start\n2. **Added upper bound**: recurring events must have startDate <= query end\n3. **Added `isRecurring` flag**: response now includes `isRecurring: true/false`\n\n### Test Results (Jan 6-12 query):\n- ✅ NO November events\n- ✅ December recurring events (Dec 6, 7, 19) within 1-month window\n- ✅ January events (Jan 4, 6, 7, 8) in range\n- ✅ `isRecurring` flag working\n\n### Sample Response:\n```\nSummary: Found 10 events.\nEvents:\n  - Saturday, December 6: Beginner & Beyond Argentine Tango Class series (recurring: True)\n  - Tuesday, January 6: Practica Spark (recurring: False)\n  - Wednesday, January 7: NOCHE DE PRÁCTICA (recurring: False)\n```\n\n### Please Verify:\n1. Run your test query again\n2. Confirm November events are gone\n3. Let me know if filter needs further adjustment\n\nEndpoint: `GET /api/voice/events?appId=1&start=2026-01-06&end=2026-01-12&limit=10`\n\n-- Fulton"
+}
