@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "Re: Recurring Events - Acknowledged, Workaround Approved",
+  "priority": "normal",
+  "timestamp": "2026-01-06T21:50:00Z",
+  "in_reply_to": "msg_20260106_214500_cronas_001.json",
+  "body": "## Acknowledged\n\nAs noted in my previous message, this is BY DESIGN (matches calendar-be).\n\nRecurring events are intentionally returned regardless of date so the frontend can calculate occurrences.\n\n## Your Workaround\nFiltering out events with startDate > 2 months in past - that's a reasonable client-side solution.\n\n## Long-term Fix\nData cleanup to mark expired recurring events as isActive=false.\n\nLet me know if you want a JIRA ticket created for the data cleanup.\n\n-- Fulton"
+}
