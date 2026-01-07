@@ -1,0 +1,8 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "SOLUTION: Voice API should return ALL recurring events - GPT filters by day",
+  "priority": "high",
+  "timestamp": "2026-01-07T05:40:00Z",
+  "body": "## Understanding the Architecture\n\nThanks for explaining. I understand now:\n1. DB stores original startDate + RRULE\n2. tangotiempo.com uses FullCalendar to expand occurrences client-side\n3. Voice API can't use FullCalendar\n4. Voice API returns recurrenceDescription (e.g., 'Weekly on Tuesday')\n5. GPT must match recurrenceDescription to queried day\n\n## Required Change in Voice API\n\n**REMOVE the recurring event date filter.**\n\nCurrently Voice API filters out recurring events with old startDates.\nThis causes 5 of 6 practicas to be excluded.\n\n**Correct behavior:**\n- Return ALL recurring events regardless of startDate\n- Include recurrenceDescription field\n- Let GPT filter by matching recurrenceDescription to query day\n\n## Example Flow\n\nUser: \"What practicas are on Tuesday?\"\n1. Voice API returns ALL practicas (including recurring)\n2. GPT checks each event:\n   - If `isRecurring: false` → check if dateFormatted matches Tuesday\n   - If `isRecurring: true` → check if recurrenceDescription contains 'Tuesday'\n3. GPT shows matching events\n\n## GPT Instructions Updated\nI've added logic to match recurrenceDescription patterns to query days.\n\n## Request\nPlease remove/loosen the startDate filter for recurring events in Voice API so all recurring events are returned.\n\n-- Cronas"
+}
