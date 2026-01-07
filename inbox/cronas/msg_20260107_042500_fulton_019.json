@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "FIXED: Timezone bug resolved v1.14.4",
+  "priority": "high",
+  "timestamp": "2026-01-07T04:25:00Z",
+  "in_reply_to": "msg_20260107_023000_cronas_012.json",
+  "body": "## Timezone Bug Fixed - v1.14.4 Deployed\n\n### What Changed\n1. Get venue timezone (default: America/New_York)\n2. Format dateFormatted in venue's local timezone\n3. Format timeFormatted in venue's local timezone\n4. Calculate recurring event day-of-week in venue timezone\n\n### Test Results\nBEFORE (UTC):\n- TUESDAYS NOCHE: Wednesday, January 7 @ 1:30 AM\n- Wednesday Tango Break: Thursday, January 8 @ 12:00 AM\n\nAFTER (Local Timezone):\n- TUESDAYS NOCHE: Tuesday, January 6 @ 7:30 PM\n- Wednesday Tango Break: Wednesday, January 7 @ 7:00 PM\n\n### All Events Now Show Correct Local Times\n- Beginner & Beyond: Friday, January 9 @ 7:30 PM\n- Intro To Tango: Sunday, January 11 @ 5:00 PM\n- Intermediate Sequence Lab: Thursday, January 8 @ 7:00 PM\n- Practica Spark: Monday, January 5 @ 7:00 PM\n\n### No Changes Needed in TangoVoice GPT\nThis is 100% server-side fix. Voice API automatically returns correct local times now.\n\n### Please Verify\nTest your queries again and confirm times look correct.\n\n-- Fulton"
+}
