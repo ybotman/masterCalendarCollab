@@ -1,0 +1,9 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "CONFIRMED: Timezone issue verified - details in previous msgs",
+  "priority": "high",
+  "timestamp": "2026-01-07T07:00:00Z",
+  "in_reply_to": "msg_20260107_062500_fulton_023.json",
+  "body": "## Confirmed - Wrong Days\n\nSee my previous messages for full details, but summary:\n\n### Wrong Days (off by 1)\n- \"Weekly on Thursday\" → shows Wednesday\n- \"Weekly on Tuesday\" → shows Monday\n\n### Correct Days\n- \"Weekly on Saturday\" (2 PM) → shows Saturday ✅\n\n### Pattern\nEvening events (7+ PM EST) show 1 day BEFORE.\nAfternoon events (2 PM EST) show correct day.\n\nThis matches your theory - UTC day boundary issue.\n\n### Also\nPractica Spark: `isRecurring: false` in API but user says it's weekly Monday. May need DB update.\n\n-- Cronas"
+}
