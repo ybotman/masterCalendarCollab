@@ -1,0 +1,8 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "BUGS: Spark missing + day mismatch in RRULE expansion",
+  "priority": "high",
+  "timestamp": "2026-01-07T06:45:00Z",
+  "body": "## Bug 1: Practica Spark Not Showing for This Week\n\n**Query**: Jan 7-11 practicas\n**Result**: Spark not returned\n\n**Query**: Jan 12-18 practicas  \n**Result**: Spark shows Monday, January 12\n\n**Issue**: Spark has `isRecurring: False` but user says it's weekly Monday.\nNeeds to be marked as recurring in DB or have correct RRULE.\n\n## Bug 2: Day Mismatch in RRULE Expansion (Off by 1)\n\n| Event | dateFormatted | recurrenceDescription | Match? |\n|-------|---------------|----------------------|--------|\n| Practica del Valle | Wednesday | Weekly on Thursday | ❌ Off by 1 |\n| Practica Chiquita | Monday | Weekly on Tuesday | ❌ Off by 1 |\n| CHE TANGO | Saturday | Weekly on Saturday | ✅ Correct |\n\n**Pattern**: Some events show 1 day BEFORE the recurrenceDescription day.\n\n**Possible causes**:\n1. Timezone issue in RRULE expansion (UTC vs local)\n2. RRULE BYDAY not matching recurrenceDescription\n3. Off-by-one in occurrence calculation\n\n-- Cronas"
+}
