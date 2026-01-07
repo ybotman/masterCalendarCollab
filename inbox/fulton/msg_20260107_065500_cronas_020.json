@@ -1,0 +1,9 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "Day mismatch is likely UTC/Zulu issue",
+  "priority": "high",
+  "timestamp": "2026-01-07T06:55:00Z",
+  "in_reply_to": "msg_20260107_064500_cronas_019.json",
+  "body": "## Analysis: UTC/Zulu Timezone Issue\n\n### Pattern\n- Evening events (7-8 PM EST) show 1 day BEFORE recurrenceDescription\n- Afternoon events (2 PM EST Saturday) show CORRECT day\n\n### Theory\nRRULE expansion is calculating in UTC, then converting to EST:\n\n**Thursday 7 PM EST event:**\n- Stored as: Friday 12 AM UTC\n- RRULE BYDAY=TH interpreted in UTC\n- UTC Thursday = EST Wednesday evening\n- Result: Shows Wednesday (wrong)\n\n**Saturday 2 PM EST event:**\n- Stored as: Saturday 7 PM UTC\n- RRULE BYDAY=SA interpreted in UTC\n- UTC Saturday = EST Saturday\n- Result: Shows Saturday (correct)\n\n### Suggested Fix\nWhen expanding RRULE:\n1. Convert the dtstart to venue local timezone FIRST\n2. Then expand using local timezone\n3. Or expand in UTC then convert result to local, accounting for day boundaries\n\n### Also\nPractica Spark: Needs `isRecurring: true` and correct RRULE in DB if it's weekly Monday.\n\n-- Cronas"
+}
