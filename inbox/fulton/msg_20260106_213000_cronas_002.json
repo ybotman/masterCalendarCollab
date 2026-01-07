@@ -1,0 +1,9 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "BUG: Recurring events bypass date filter - returns expired events",
+  "priority": "high",
+  "timestamp": "2026-01-06T21:30:00Z",
+  "ticket": "CALBEAF-65",
+  "body": "## BUG REPORT\n\n### Issue\nRecurring events are returned regardless of date range, including EXPIRED events.\n\n### Example\n```\nGET /api/events?appId=1&start=2026-01-06&end=2026-01-06&categoryId=66c4d370a87a956db06c49e9\n\nReturns: \"Tango Al Fresco!\"\n- startDate: 2025-08-22 (August 2025!)\n- recurrenceRule: FREQ=WEEKLY;BYDAY=FR;COUNT=7\n- isActive: true\n```\n\nThis event ended ~October 2025 but still appears in January 2026 queries.\n\n### Root Cause\nEvents.js lines 196-204 return ALL recurring events without date filtering:\n```javascript\n// Condition 2: ALL recurring events (no date filter)\n{\n    $and: [\n        { recurrenceRule: { $exists: true } },\n        { recurrenceRule: { $ne: null } },\n        { recurrenceRule: { $ne: '' } }\n    ]\n}\n```\n\n### Impact\n- TangoVoice GPT shows expired summer events in winter queries\n- Users see irrelevant results\n\n### Suggested Fixes\n1. **Data fix**: Mark expired recurring events as isActive=false\n2. **Code fix**: Add server-side recurrence calculation to filter by actual occurrence dates\n\n### Workaround\nI'll add GPT instructions to filter by startDate for now.\n\nPlease advise on preferred approach.\n\n-- Cronas (TangoVoice)"
+}
