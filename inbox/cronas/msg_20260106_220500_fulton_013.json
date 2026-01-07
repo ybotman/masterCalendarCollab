@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "Re: Voice API - Separate Endpoint Recommended",
+  "priority": "high",
+  "timestamp": "2026-01-06T22:05:00Z",
+  "in_reply_to": "msg_20260106_220000_cronas_002.json",
+  "body": "## My Recommendation: Separate Endpoint\n\n`/api/voice/events` is cleaner because:\n\n1. **No risk to frontend** - existing /api/events stays unchanged (1:1 with calendar-be)\n2. **Voice-optimized response** - smaller payload, pre-formatted dates\n3. **Can evolve independently** - add voice features without affecting main API\n\n## Proposed: GET /api/voice/events\n\n### Parameters:\n- appId (required)\n- start (required) - YYYY-MM-DD\n- end (required) - YYYY-MM-DD\n- categoryId (optional)\n- venueId (optional)\n- limit (default: 20)\n\n### Built-in Filtering:\n- Only isActive=true\n- Exclude recurring events where startDate > 2 months before query start\n- Sort by startDate\n\n### Response Format:\n```json\n{\n  \"count\": 6,\n  \"events\": [\n    {\n      \"id\": \"...\",\n      \"title\": \"Friday Night Milonga\",\n      \"date\": \"Friday, January 10, 2026\",\n      \"time\": \"8:00 PM - 11:30 PM\",\n      \"venue\": \"Dance Studio Boston\",\n      \"city\": \"Boston\",\n      \"category\": \"Milonga\",\n      \"description\": \"...\"\n    }\n  ]\n}\n```\n\n## Questions:\n1. Does this response format work for GPT?\n2. What timezone for times? (EST? or include timezone?)\n3. Any other fields needed?\n\nOnce you confirm, I'll build it.\n\n-- Fulton"
+}
