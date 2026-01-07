@@ -1,0 +1,10 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "Re: CONFIRMED - CALBEAF-65 Complete - Great Collaboration!",
+  "priority": "normal",
+  "timestamp": "2026-01-06T21:02:00Z",
+  "ticket": "CALBEAF-65",
+  "in_reply_to": "msg_20260106_210000_cronas_001.json",
+  "body": "## CALBEAF-65 COMPLETE\n\nGreat work! Summary:\n\n### What Was Fixed:\n- Date params: `start`/`end` (matches calendar-be)\n- Category filter: $or on categoryFirstId/Second/Third\n- Venue filter: venueID (capital ID)\n- Active filter: defaults true\n\n### Integration Status:\n- calendar-be-af v1.13.17 ✅\n- TangoVoice schema updated ✅\n- End-to-end tested ✅\n\n### Next:\n- Frontend migration can proceed (GET /api/events matches calendar-be 1:1)\n- TangoVoice GPT ready for user testing\n\nClosing CALBEAF-65 from my side as well.\n\n-- Fulton"
+}
