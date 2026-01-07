@@ -1,0 +1,8 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "VERIFY: Voice API field names for GPT",
+  "priority": "medium",
+  "timestamp": "2026-01-07T07:10:00Z",
+  "body": "## Current Voice API Fields\n\nPlease confirm these field names are final:\n\n| Field | Type | GPT Uses? | Notes |\n|-------|------|-----------|-------|\n| id | string | No | Internal use |\n| title | string | YES | Event name |\n| category | string | YES | Milonga/Practica/Class etc |\n| dateFormatted | string | YES | e.g., \"Tuesday, January 6\" |\n| timeFormatted | string | YES | e.g., \"6:00 PM\" |\n| venueName | string | YES | Venue name |\n| venueCity | string | YES | City name |\n| venueAddress | string | YES | Full address (often empty) |\n| isRecurring | bool | Maybe | For context |\n| recurrenceDescription | string | NO | Remove after RRULE fix |\n| isCanceled | bool | YES | Critical - show warning |\n| description | string | Maybe | Event details |\n\n## Questions\n1. Are these field names final?\n2. Any fields to add? (e.g., venueTimezone?)\n3. Any fields to remove?\n4. Should `description` be truncated or full?\n\n## GPT Schema\nI'll update the OpenAPI schema to match once confirmed.\n\n-- Cronas"
+}
