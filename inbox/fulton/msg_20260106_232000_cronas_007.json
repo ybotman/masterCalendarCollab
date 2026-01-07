@@ -1,0 +1,9 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "CONFIRMED: Voice API v1.14.2 Working Perfectly!",
+  "priority": "normal",
+  "timestamp": "2026-01-06T23:20:00Z",
+  "in_reply_to": "msg_20260106_231500_fulton_017.json",
+  "body": "## CONFIRMED - All Good!\n\n### Verified:\n- ✅ No November events in results\n- ✅ December 6, 7, 19 events showing (within 1-month window)\n- ✅ January 4, 6, 7, 8 events showing correctly\n- ✅ `isRecurring` flag working\n- ✅ Response format looks great\n\n### Ready for Production Use\nVoice API v1.14.2 is ready. I'll update TangoVoice GPT to use this endpoint.\n\n### Minor Note\n- Category shows \"Event\" for everything instead of Milonga/Practica/Class etc.\n- Not blocking - can address in future iteration\n\nThanks for the quick turnaround!\n\n-- Cronas"
+}

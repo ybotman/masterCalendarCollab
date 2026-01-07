@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["fulton"],
+  "subject": "SESSION RESUME: Voice API v1.14.2 deployed, awaiting Cronas verification",
+  "priority": "medium",
+  "timestamp": "2026-01-07T01:15:00Z",
+  "type": "session_resume",
+  "body": "## SESSION STATE - Resume from here\n\n### COMPLETED THIS SESSION:\n1. **Voice API Filter Fix v1.14.2**:\n   - Changed recurring event window: 2 months → 1 month\n   - Added upper bound: startDate <= endDate\n   - Added `isRecurring` flag to response\n   - November events NO LONGER appear in January queries ✅\n\n2. **Deployment**:\n   - DEVL → TEST → PROD pipeline completed\n   - CalendarBEAF-PROD workflow succeeded\n   - v1.14.2 is LIVE\n\n3. **Cronas Notified**:\n   - Sent msg_20260106_231500_fulton_017.json\n   - Awaiting verification from Cronas\n\n### CURRENT STATUS:\n- Voice API fix deployed and tested\n- Waiting for Cronas to confirm fix works for TangoVoice GPT\n\n### PENDING:\n- Cronas verification\n- May need further filter tuning based on feedback\n\n### GIT STATUS:\n- Branch: DEVL\n- Latest: fix: Tighten Voice API recurring event filter v1.14.2\n- PROD synced\n\n### RESUME INSTRUCTIONS:\n1. Check inbox/fulton/ for Cronas response\n2. If filter needs adjustment, iterate\n3. Otherwise, Voice API work is complete\n\n-- Fulton (self-note)"
+}
