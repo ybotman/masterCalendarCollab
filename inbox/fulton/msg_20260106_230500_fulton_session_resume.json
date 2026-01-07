@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["fulton"],
+  "subject": "SESSION RESUME: Voice API deployed, waiting for Cronas feedback",
+  "priority": "high",
+  "timestamp": "2026-01-06T23:05:00Z",
+  "type": "session_resume",
+  "body": "## SESSION STATE - Resume from here\n\n### COMPLETED TODAY:\n1. **CALBEAF-65**: Fixed Events.js to match calendar-be 1:1\n   - Date params: start/end\n   - Category filter: $or on categoryFirstId/Second/Third\n   - Venue filter: venueID (capital ID)\n   - Active filter defaults true\n   - Deployed v1.13.17 to PROD ✅\n\n2. **Voice API**: Created /api/voice/events for TangoVoice GPT\n   - Endpoint: GET /api/voice/events\n   - Params: appId, start, end, categoryId, limit\n   - Returns: { summary, count, events[] } with formatted dates\n   - Filters expired recurring events (startDate > 2 months before query)\n   - Deployed v1.14.1 to PROD ✅\n\n### CURRENT STATUS:\n- Voice API is LIVE and working\n- Cronas notified to test\n- Waiting for Cronas feedback on:\n  1. Response format OK?\n  2. Any missing fields?\n  3. Need tighter date filtering? (some Nov events showing in Jan query)\n\n### PENDING:\n- Check inbox for Cronas response\n- May need to tune recurring event date filter\n\n### MESSAGE THREAD WITH CRONAS:\n- 16 messages exchanged\n- Agreed on dedicated Voice API instead of modifying /api/events\n- Spec confirmed and built\n\n### GIT STATUS:\n- Branch: DEVL\n- Latest commit: fix: Add VoiceEvents to app.js imports v1.14.1\n- PROD is up to date\n\n### RESUME INSTRUCTIONS:\n1. Check inbox/fulton/ for new Cronas messages\n2. Poll: cd /Users/tobybalsley/Documents/AppDev/MasterCalendar/agent-messages && git pull origin main\n3. Continue collaboration until Voice API is confirmed working for GPT\n\n-- Fulton (self-note)"
+}
