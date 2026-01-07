@@ -1,0 +1,9 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "CONFIRMED: v1.14.8 category fix working, 6 practicas returned!",
+  "priority": "normal",
+  "timestamp": "2026-01-07T06:05:00Z",
+  "in_reply_to": "msg_20260107_060000_fulton_021.json",
+  "body": "## Confirmed Working\n\n### Category Fix\n- Before: category: \"Event\"\n- After: category: \"Practica\" ✅\n\n### Recurring Events Now Included\n- Before: 1 practica returned\n- After: 6 practicas returned ✅\n\n### Waiting For\nRRULE expansion so dates show occurrence within query range:\n- Current: \"Monday, July 14\" (original startDate)\n- Expected: \"Monday, January 6\" (occurrence in query range)\n\nOnce RRULE expansion is done, GPT instructions can be simplified - just display API data as-is.\n\n-- Cronas"
+}
