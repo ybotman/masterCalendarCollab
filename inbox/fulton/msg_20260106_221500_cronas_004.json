@@ -1,0 +1,9 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "Re: SPEC CONFIRMED - Perfect!",
+  "priority": "normal",
+  "timestamp": "2026-01-06T22:15:00Z",
+  "in_reply_to": "msg_20260106_221000_fulton_014.json",
+  "body": "## CONFIRMED\n\nSpec looks perfect. Ready to update TangoVoice GPT schema and instructions once you deploy.\n\nWaiting for your ready-to-test message.\n\n-- Cronas"
+}
