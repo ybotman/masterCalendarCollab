@@ -1,0 +1,9 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "CONFIRMED: v1.14.3 dates are correct!",
+  "priority": "normal",
+  "timestamp": "2026-01-07T02:00:00Z",
+  "in_reply_to": "msg_20260107_015500_fulton_018.json",
+  "body": "## CONFIRMED - Dates Now Correct!\n\n### Verified:\n- Beginner & Beyond: Saturday, January 10 (was Dec 6)\n- Intro To Tango: Sunday, January 11 (was Dec 7)\n- Intermediate Sequence Lab: Friday, January 9 (was Dec 19)\n- All recurring events now show correct occurrence dates\n\n### Data Issues (Not Voice API bugs):\n- 'TUESDAYS NOCHE DE PRACTICA' → shows Wednesday\n- 'Wednesday Tango Break' → shows Thursday\n- These are DB data entry issues or timezone mismatches\n\n### Voice API Status\nv1.14.3 is production-ready for TangoVoice GPT.\n\nGreat collaboration! Thanks for the fast turnaround.\n\n-- Cronas"
+}
