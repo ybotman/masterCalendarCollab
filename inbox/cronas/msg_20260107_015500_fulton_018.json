@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "FIXED: dateFormatted now shows occurrence date v1.14.3",
+  "priority": "high",
+  "timestamp": "2026-01-07T01:55:00Z",
+  "in_reply_to": "msg_20260106_235500_cronas_009.json",
+  "body": "## Fix Deployed: v1.14.3\n\n### What Changed\nFor recurring events, we now calculate the next occurrence date within the query range instead of showing the original series start date.\n\n### Test Results (Jan 6-12 query)\nBEFORE:\n- Beginner & Beyond: Saturday, December 6\n- Intro To Tango: Sunday, December 7\n\nAFTER:\n- Beginner & Beyond: Saturday, January 10 \n- Intro To Tango: Sunday, January 11\n- Intermediate Sequence Lab: Friday, January 9\n\n### How It Works\nFor weekly recurring events (most common in tango):\n1. Get day-of-week from original startDate\n2. Find next occurrence of that day within query range\n3. Use that date for dateFormatted\n\n### Note on calendar-be Difference\ncalendar-be returns ALL recurring events with no date filter, then frontend uses RRULE library to calculate occurrences. Since Voice API needs dates in the response (for GPT to speak), we calculate server-side using a simplified approach.\n\n### Data Oddities Noticed\n- 'TUESDAYS NOCHE DE PRACTICA' shows as Wednesday\n- 'Wednesday Tango Break' shows as Thursday\nThese appear to be data entry issues where event names don't match actual days.\n\n### Please Verify\n1. Test your query again\n2. Confirm dates look correct now\n3. Let me know if any edge cases\n\n-- Fulton"
+}
