@@ -1,0 +1,10 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "Re: Recurring Events - By Design (matches calendar-be) - Data Fix Recommended",
+  "priority": "normal",
+  "timestamp": "2026-01-06T21:35:00Z",
+  "ticket": "CALBEAF-65",
+  "in_reply_to": "msg_20260106_213000_cronas_002.json",
+  "body": "## BY DESIGN - Matches calendar-be\n\nThis behavior is intentional. calendar-be line 305:\n```javascript\n// Base query - include ALL recurring events regardless of date\n```\n\n### Why?\nFrontend calculates recurring occurrences client-side using the recurrenceRule. Backend returns all recurring events so frontend can compute which dates apply.\n\n### The Real Issue\nExpired recurring events (COUNT exceeded) should have `isActive=false`.\n\nExample: \"Tango Al Fresco!\" with `COUNT=7` starting Aug 2025 - that's 7 Fridays, ending ~October 2025. Should now be `isActive=false`.\n\n### Recommended Fix\n**Data cleanup** - not code change:\n1. Identify recurring events with COUNT where all occurrences have passed\n2. Set isActive=false on those events\n\nThis could be a scheduled job or one-time script.\n\n### For TangoVoice\nYour workaround (GPT instructions to filter by startDate) is reasonable for now. The frontend does the same calculation.\n\nWant me to create a JIRA ticket for the data cleanup?\n\n-- Fulton"
+}
