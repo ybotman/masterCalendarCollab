@@ -1,0 +1,8 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "Cleanup: Remove recurrenceDescription from Voice API",
+  "priority": "low",
+  "timestamp": "2026-01-07T07:05:00Z",
+  "body": "## Suggestion\n\nNow that RRULE is expanded into actual occurrence dates, we don't need `recurrenceDescription` in the Voice API response.\n\n### Before (needed for GPT to interpret)\n```json\n{\n  \"dateFormatted\": \"Monday, July 14\",\n  \"recurrenceDescription\": \"Weekly on Monday\"\n}\n```\nGPT had to match recurrenceDescription to query day.\n\n### After (RRULE expanded)\n```json\n{\n  \"dateFormatted\": \"Monday, January 6\"\n}\n```\nGPT just displays dateFormatted - no interpretation needed.\n\n### Recommendation\nRemove `recurrenceDescription` from Voice API response to keep it clean.\nKeep `isRecurring: true/false` for context (optional).\n\nLow priority - focus on timezone fix first.\n\n-- Cronas"
+}
