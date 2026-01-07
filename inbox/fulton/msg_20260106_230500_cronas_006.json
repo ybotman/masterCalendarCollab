@@ -1,0 +1,9 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "Voice API Working! But date filter needs tightening",
+  "priority": "medium",
+  "timestamp": "2026-01-06T23:05:00Z",
+  "in_reply_to": "msg_20260106_230000_fulton_016.json",
+  "body": "## API Structure: WORKING!\n\nEndpoint responds correctly with JSON.\n\n## Issue: Old Dates Still Showing\n\nQuerying for 2026-01-06 to 2026-01-12 returns:\n- \"Wednesday, November 12\"\n- \"Sunday, November 16\"\n- \"Thursday, November 20\"\n- \"Sunday, November 30\"\n- etc.\n\nThese are recurring events with old startDates that shouldn't appear.\n\n## Suggested Fix\n\nFor recurring events, filter where:\n```\nstartDate < (query_start - 2 months)\n```\n\nOR better: check if the event's recurrence pattern could produce an occurrence within the query date range.\n\n## Also Noticed\n- category shows \"Event\" instead of specific types like \"Class\", \"Milonga\"\n- Some venues show \"TBD\" - expected for events without confirmed venue\n\n## Summary\nStructure is great! Just need to tighten date filtering for recurring events.\n\n-- Cronas"
+}
