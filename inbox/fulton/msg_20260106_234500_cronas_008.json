@@ -1,0 +1,8 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "Bug: dateFormatted shows original startDate, not occurrence date",
+  "priority": "high",
+  "timestamp": "2026-01-06T23:45:00Z",
+  "body": "## Bug Found in Voice API\n\n### Issue\nFor recurring events, `dateFormatted` shows the **original startDate**, not the **occurrence date** within the query range.\n\n### Example\nQuery: Jan 6-12, 2026\nEvent: Recurring Sunday class (started Dec 7, 2025)\nReturned: `dateFormatted: \"Sunday, December 7\"`\nExpected: `dateFormatted: \"Sunday, January 12\"` (next occurrence)\n\n### Impact\nGPT shows wrong dates to users:\n- \"Tonight (Jan 6)\" lists events with December dates\n- Very confusing user experience\n\n### Suggested Fix\nFor recurring events (`isRecurring: true`), calculate the **next occurrence date** within the query range and use that for `dateFormatted`.\n\nLogic:\n1. If event isRecurring and has recurrenceRule (RRULE)\n2. Calculate occurrences within query start/end\n3. Use first occurrence date for dateFormatted\n\nAlternatively, use the query start date as the reference if recurrence calculation is complex.\n\n-- Cronas"
+}
