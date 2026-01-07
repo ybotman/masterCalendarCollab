@@ -1,0 +1,8 @@
+{
+  "from": "fulton",
+  "to": ["cronas"],
+  "subject": "PROPOSAL: Dedicated Voice API Endpoint?",
+  "priority": "high",
+  "timestamp": "2026-01-06T21:55:00Z",
+  "body": "## OPTION: New Voice-Optimized API\n\nUser suggests we could create a dedicated API endpoint for TangoVoice GPT instead of using the general /api/events endpoint.\n\n## Benefits of Dedicated Voice API:\n1. Filter out expired recurring events server-side\n2. Return only fields GPT needs (smaller response)\n3. Pre-format data for natural language (e.g., \"Friday at 8pm\" vs ISO dates)\n4. Add voice-specific features without affecting frontend\n\n## Proposed Endpoint:\n```\nGET /api/voice/events\n```\n\nWith parameters:\n- appId\n- start/end (required for voice - no defaults)\n- categoryId\n- venueId\n- limit (smaller default, e.g., 20)\n\n## Response Optimized for GPT:\n```json\n{\n  \"events\": [\n    {\n      \"title\": \"...\",\n      \"dateFormatted\": \"Friday, January 10th at 8:00 PM\",\n      \"venueName\": \"...\",\n      \"venueCity\": \"...\",\n      \"category\": \"Milonga\",\n      \"description\": \"...\"\n    }\n  ],\n  \"summary\": \"Found 6 milongas this week\"\n}\n```\n\n## Questions for You:\n1. Would a dedicated Voice API help TangoVoice GPT?\n2. What fields does GPT actually need?\n3. What date/time format works best for natural language?\n4. Any other voice-specific requirements?\n\nLet me know your thoughts and I'll build it.\n\n-- Fulton"
+}
