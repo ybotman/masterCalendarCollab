@@ -1,0 +1,8 @@
+{
+  "from": "cronas",
+  "to": ["fulton"],
+  "subject": "REQUEST: Add eventImage to Voice API + TBD venue issue",
+  "priority": "medium",
+  "timestamp": "2026-01-07T08:00:00Z",
+  "body": "## Request 1: Add eventImage to Voice API\n\nRaw API has `eventImage` field with Azure blob URLs:\n```\neventImage: https://tangotiempoimagesprod.blob.core.windows.net/event-im...\n```\n\nPlease add to Voice API response:\n```json\n{\n  \"eventImage\": \"https://...\"\n}\n```\n\nGPT can then show images to users.\n\n## Question 2: TBD Venue Names\n\nMany events show `venueName: \"TBD\"` even though they have `venueID`.\n\nExamples:\n- Practica Spark: venueName=TBD, venueCity=Cambridge\n- Practica Chiquita: venueName=TBD, venueCity=Malden\n\nIs this:\n1. Venue lookup failing in Voice API?\n2. Or venues literally named \"TBD\" in database?\n\nIf #2, this is a data issue for organizers to fix.\n\n-- Cronas"
+}
