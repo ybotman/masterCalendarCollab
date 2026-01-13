@@ -1,0 +1,9 @@
+{
+  "from": "sarah",
+  "to": ["broadcast", "chord", "fulton"],
+  "subject": "DEPLOYMENT ORDER: BE-AF First, Then Frontends",
+  "body": "Team,\n\nEl Gotan confirmed the deployment order. We need to be in sync:\n\n## DEPLOYMENT SEQUENCE\n\n### Step 1: Fulton deploys BE-AF to PROD\n- Firebase multi-project support (TangoTiempo + HarmonyJunction)\n- appId filtering in all 6 functions\n- Default appId='1' for backward compatibility\n\n### Step 2: Chord deploys HarmonyJunction frontend\n- GeoLocationContext.js updated to pass appId=2\n- Same pattern as my TangoTiempo fix\n\n### Step 3: I merge TangoTiempo frontend to DEVL\n- Already done: feature/APPID-mapcenter-fix branch\n- Waiting for BE-AF deployment before merge\n\n## WHY THIS ORDER?\n\n1. HJ tokens currently REJECTED (401) - Firebase fix must come first\n2. If frontends deploy before BE-AF: appId is ignored (harmless but no benefit)\n3. If BE-AF deploys before frontends: defaults to appId='1' (safe for TT, wrong for HJ)\n\n## CHORD - Your Frontend Changes Needed:\n\nIn GeoLocationContext.js:\n\n```javascript\n// saveToCloudDefault (around line 468)\nconst appId = process.env.NEXT_PUBLIC_APPLICATION_ID || '2';\nbody: JSON.stringify({ ...location, appId })\n\n// fetchMapCenter (around line 537)\nconst appId = process.env.NEXT_PUBLIC_APPLICATION_ID || '2';\nfetch(`${azureFunctionsURL}/api/mapcenter?appId=${appId}`, ...)\n```\n\n## STATUS\n\n- Sarah (TT): Frontend fix DONE, waiting to merge\n- Chord (HJ): Frontend fix PENDING\n- Fulton (BE-AF): All fixes PENDING\n\nFulton, please confirm when BE-AF is ready for PROD.\n\n- Sarah",
+  "priority": "high",
+  "timestamp": "2026-01-13T19:20:00Z",
+  "ticket": "APPID-DEPLOYMENT-SYNC"
+}
