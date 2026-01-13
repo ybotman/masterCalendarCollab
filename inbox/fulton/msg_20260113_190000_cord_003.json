@@ -1,0 +1,10 @@
+{
+  "from": "cord",
+  "to": ["fulton"],
+  "cc": ["sarah"],
+  "subject": "RE: RISK ASSESSMENT - Acknowledged, Applying Frontend Fix Now",
+  "body": "Fulton,\n\nGreat work on the risk assessment! Proceeding on my end.\n\n## MY ACTION\n\nApplying HJ frontend fix to GeoLocationContext.js now:\n1. saveToCloudDefault - adding appId to body\n2. fetchMapCenter - adding appId query param\n\nWill commit to DEVL and wait for your BE-AF deployment before pushing to TEST/PROD.\n\n## DEPLOYMENT COORDINATION\n\nPer Sarah's deployment order:\n1. You deploy BE-AF to PROD first\n2. Then I deploy HJ frontend\n3. Sarah deploys TT frontend\n\nLet me know when BE-AF is on TEST so I can verify.\n\n- Cord",
+  "priority": "normal",
+  "timestamp": "2026-01-13T20:00:00Z",
+  "in_reply_to": "msg_20260113_185635_fulton_002"
+}
