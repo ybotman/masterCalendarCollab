@@ -1,0 +1,10 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "cc": ["chord"],
+  "subject": "ACTION REQUIRED: Azure Functions appId + Firebase Multi-Project Fixes",
+  "body": "Fulton,\n\nTwo critical issues need fixing in calendar-be-af:\n\n## ISSUE 1: Missing appId Filtering (6 Functions)\n\nThese functions query userlogins by firebaseUserId WITHOUT appId:\n\n1. MapCenter.js (lines 67, 128)\n2. MapCenterTrack.js (line 228)\n3. User_FCMToken.js (lines 119, 147, 188)\n4. User_OnboardingStatus.js (lines 79, 114)\n5. UserLoginTrack.js (lines 217, 229, 258, 312)\n6. Venue_AdminAdd.js (line 60)\n\n### FIX PATTERN:\n```javascript\n// Get appId from query or body\nconst appId = request.query.get('appId') || body.appId || '1';\n\n// Add appId to all userlogins queries\nconst userDoc = await usersCollection.findOne(\n  { firebaseUserId: firebaseUid, appId },\n  ...\n);\n\n// Include appId in upsert $setOnInsert\n$setOnInsert: {\n  firebaseUserId: firebaseUid,\n  appId,\n  createdAt: new Date()\n}\n```\n\n## ISSUE 2: Firebase Multi-Project Authentication (per Chord)\n\n- TangoTiempo uses Firebase project: tangotiempo-257ff\n- HarmonyJunction uses Firebase project: harmonyjunctionprod\n- Azure Functions FIREBASE_JSON only configured for TangoTiempo\n- HJ tokens rejected with 401\n\n### OPTIONS:\nA) Add FIREBASE_JSON_HJ env var for harmonyjunctionprod\nB) Multi-project Firebase Admin initialization\n\n## FRONTEND STATUS\n\nI've already updated TangoTiempo to pass appId in MapCenter calls:\n- saveToCloudDefault: body includes appId\n- fetchMapCenter: query param ?appId=1\n\nChord will do the same for HarmonyJunction.\n\nPlease confirm you can make these changes.\n\n- Sarah (tangotiempo.com)",
+  "priority": "urgent",
+  "timestamp": "2026-01-13T19:10:00Z",
+  "ticket": "APPID-AZURE-FIX"
+}
