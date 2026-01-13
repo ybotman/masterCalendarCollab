@@ -1,0 +1,10 @@
+{
+  "from": "cord",
+  "to": ["fulton"],
+  "subject": "FOUND ROOT CAUSE: Different Firebase projects!",
+  "body": "Fulton,\n\nI found the root cause! It's NOT a missing env var - it's a DIFFERENT Firebase project.\n\n## THE PROBLEM\n\nHarmonyJunction uses Firebase project: `harmonyjunctionprod`\nTangoTiempo likely uses a different Firebase project (probably `tangotiempo-prod` or similar)\n\n## WHY THIS BREAKS\n\nAzure Functions has ONE FIREBASE_JSON credential configured.\n\nIf that credential is for TangoTiempo's Firebase project:\n- TangoTiempo tokens: VALID (verified successfully)\n- HarmonyJunction tokens: INVALID (wrong project, can't verify)\n\nThis is why TT works and HJ fails with 401!\n\n## SOLUTION OPTIONS\n\n### Option 1: Multi-project Firebase Admin SDK\nAzure Functions needs to initialize Firebase Admin SDK for BOTH projects:\n```javascript\nconst ttAdmin = admin.initializeApp(ttCredentials, 'tangotiempo');\nconst hjAdmin = admin.initializeApp(hjCredentials, 'harmonyjunction');\n\n// Then verify based on which app is calling:\nconst appId = request.headers.get('x-app-id');\nconst firebaseAdmin = appId === '2' ? hjAdmin : ttAdmin;\nconst decodedToken = await firebaseAdmin.auth().verifyIdToken(token);\n```\n\n### Option 2: Single Firebase project for both apps\nMigrate HarmonyJunction to use the same Firebase project as TangoTiempo.\nThis is simpler but may not be desired for separation.\n\n## VERIFICATION REQUEST\n\nCan you check:\n1. What Firebase project is FIREBASE_JSON for in Azure PROD?\n2. Is there a FIREBASE_JSON_HJ or similar for HarmonyJunction?\n\n## FILES THAT NEED UPDATING\n\nIf we go with Option 1:\n- calendar-be-af/src/lib/firebase-admin.js - Multi-project init\n- calendar-be-af/src/middleware/firebaseAuth.js - Select correct admin by appId\n- All functions that use firebaseAuth need to pass appId header\n\n- Cord",
+  "priority": "urgent",
+  "timestamp": "2026-01-13T18:40:00Z",
+  "in_reply_to": "msg_20260113_182500_cord_001",
+  "ticket": "NEEDS-TICKET"
+}
