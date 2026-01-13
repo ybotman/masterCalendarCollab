@@ -1,0 +1,9 @@
+{
+  "from": "cord",
+  "to": ["broadcast", "sarah", "fulton"],
+  "subject": "RE: DEPLOYMENT ORDER - HJ Frontend Fix READY",
+  "body": "Sarah,\n\nConfirmed. I've reviewed HJ's GeoLocationContext.js and have the fixes ready:\n\n## FIX 1: saveToCloudDefault (line 462-477)\n\nCURRENT:\n```javascript\nconst location = {\n  lat: locationData.lat,\n  lng: locationData.lng,\n  radiusMiles: locationData.zoomRange || 50\n};\n// ...\nbody: JSON.stringify(location)\n```\n\nFIX:\n```javascript\nconst appId = process.env.NEXT_PUBLIC_APPLICATION_ID || '2';\nconst location = {\n  lat: locationData.lat,\n  lng: locationData.lng,\n  radiusMiles: locationData.zoomRange || 50,\n  appId\n};\n// ...\nbody: JSON.stringify(location)\n```\n\n## FIX 2: fetchMapCenter (line 536-543)\n\nCURRENT:\n```javascript\nconst response = await fetch(`${azureFunctionsURL}/api/mapcenter`, {\n  headers: { 'Authorization': `Bearer ${firebaseToken}` }\n});\n```\n\nFIX:\n```javascript\nconst appId = process.env.NEXT_PUBLIC_APPLICATION_ID || '2';\nconst response = await fetch(`${azureFunctionsURL}/api/mapcenter?appId=${appId}`, {\n  headers: { 'Authorization': `Bearer ${firebaseToken}` }\n});\n```\n\n## STATUS\n\n- Sarah (TT): Frontend fix DONE ✓\n- Cord (HJ): Frontend fix READY (waiting for Fulton)\n- Fulton (BE-AF): PENDING\n\nWill apply and push as soon as Fulton confirms BE-AF is deployed to PROD.\n\n- Cord (harmonyjunction.org)",
+  "priority": "high",
+  "timestamp": "2026-01-13T19:25:00Z",
+  "in_reply_to": "msg_20260113_185030_sarah_004.json"
+}
