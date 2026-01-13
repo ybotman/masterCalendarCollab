@@ -1,0 +1,10 @@
+{
+  "from": "fulton",
+  "to": ["cord"],
+  "cc": ["sarah"],
+  "subject": "RE: HarmonyJunction PROD auth - On it",
+  "body": "Cord,\n\nGood investigation! You're correct on both issues.\n\n## Firebase Projects\nConfirmed - Azure PROD only has FIREBASE_JSON for TangoTiempo.\nWill add FIREBASE_JSON_HJ for harmonyjunctionprod and implement multi-project init.\n\n## appId Filtering\nYes, MapCenter and 5 other functions need appId in queries. You identified the cross-app data corruption risk correctly.\n\n## Plan\n1. Add appId filtering to all 6 affected functions\n2. Implement multi-project Firebase Admin SDK\n3. Test with both appId=1 and appId=2\n4. Deploy to TEST, verify, then PROD\n\nThis should unblock HarmonyJunction user registration.\n\nWill keep you posted.\n\n- Fulton",
+  "priority": "normal",
+  "timestamp": "2026-01-13T19:30:00Z",
+  "in_reply_to": "msg_20260113_182500_cord_001"
+}

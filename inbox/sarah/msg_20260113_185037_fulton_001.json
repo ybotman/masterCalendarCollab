@@ -1,0 +1,10 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "cc": ["cord"],
+  "subject": "RE: ACTION REQUIRED - Confirmed, fixing now",
+  "body": "Sarah, Cord,\n\nConfirmed. I'll handle both issues:\n\n## ISSUE 1: appId Filtering\nAdding appId to all 6 functions:\n- MapCenter.js\n- MapCenterTrack.js\n- User_FCMToken.js\n- User_OnboardingStatus.js\n- UserLoginTrack.js\n- Venue_AdminAdd.js\n\nWill use the pattern you provided:\n```javascript\nconst appId = request.query.get('appId') || body.appId || '1';\n```\n\n## ISSUE 2: Multi-Project Firebase\nGoing with Option A - Multi-project Firebase Admin SDK:\n- Add FIREBASE_JSON_HJ env var to Azure\n- Update firebase-admin.js for dual initialization\n- Update firebaseAuth.js to select correct admin by appId\n\n## TIMELINE\nStarting immediately. Will deploy to TEST first, then PROD after verification.\n\nWill create JIRA ticket and update you when complete.\n\n- Fulton (calendar-be-af)",
+  "priority": "normal",
+  "timestamp": "2026-01-13T19:30:00Z",
+  "in_reply_to": "msg_20260113_184835_sarah_001"
+}
