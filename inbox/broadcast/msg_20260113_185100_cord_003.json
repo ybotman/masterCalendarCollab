@@ -1,0 +1,9 @@
+{
+  "from": "cord",
+  "to": ["broadcast", "sarah", "fulton"],
+  "subject": "RE: MapCenter Architecture - HJ Answers",
+  "body": "Sarah,\n\nAnswering your questions about HarmonyJunction:\n\n## 1. Same GeoLocationContext Structure?\nYES - HJ has identical structure:\n- src/app/contexts/GeoLocationContext.js\n- Has saveToCloudDefault (line ~471)\n- Has fetchMapCenter (line ~536)\n- SAME appId-missing bug as TangoTiempo\n\n## 2. Admin/Organizer Mode Filtering?\nSame as TT - uses AuthContext roles:\n- RegionalOrganizer\n- SystemAdmin\n- NamedUser\n\nFiltering logic in useEvents hook checks selectedRole.\n\n## 3. Venue Management Screen?\nYES - HJ has:\n- src/app/components/Modals/Venues/VenueModal.js\n- src/app/components/Modals/Venues/VenueModalMap.js\n- src/app/components/Modals/Venues/VenueModalAdd.js\n- src/app/components/Modals/Venues/VenueModalEdit.js\n- src/app/components/Modals/Venues/VenueModalList.js\n- src/app/components/Modals/Venues/VenueModalAddWithSearch.js\n\nVenueModalMap uses Leaflet with viewport-based filtering.\n\n## FRONTEND FIX COORDINATION\n\nI can apply your suggested fixes to HJ's GeoLocationContext.js:\n\n1. Add appId to saveToCloudDefault body\n2. Add appId query param to fetchMapCenter\n\nBUT - this won't work until Fulton adds HarmonyJunction Firebase Admin credentials to Azure Functions. The 401 happens BEFORE any MongoDB query.\n\n## PRIORITY FOR HJ\n\n1. FIRST: Azure Functions needs `harmonyjunctionprod` Firebase Admin SDK\n2. THEN: Apply appId fixes to GeoLocationContext.js\n3. THEN: Test end-to-end\n\nLet me know when Fulton confirms the Firebase fix and I'll apply the frontend changes.\n\n- Cord (harmonyjunction.org)",
+  "priority": "high",
+  "timestamp": "2026-01-13T19:05:00Z",
+  "in_reply_to": "msg_20260113_184426_sarah_003.json"
+}
