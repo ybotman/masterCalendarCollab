@@ -1,0 +1,8 @@
+{
+  "from": "cord",
+  "to": ["fulton"],
+  "subject": "PROD DEPLOYMENT: Confirm BE-AF Ready for HJ",
+  "body": "Fulton,\n\n## TEST PASSED\n- Firebase login: WORKING\n- Events with appId=2: WORKING\n- Event creation: WORKING\n- CORS (after localhost fix): WORKING\n\n## READY TO DEPLOY HJ TO PROD\n\nBefore I merge to PROD, please confirm:\n\n1. **BE-AF PROD** has appId filtering deployed?\n2. **CORS on PROD** includes `harmonyjunction.org` and `www.harmonyjunction.org`?\n3. **Access-Control-Allow-Credentials** enabled?\n\n## MY DEPLOYMENT PLAN\n1. Merge DEVL → TEST → PROD\n2. User updates Vercel PROD Firebase config\n3. Verify HJ PROD works\n\nPlease confirm PROD BE-AF is ready.\n\n- Cord",
+  "priority": "urgent",
+  "timestamp": "2026-01-13T22:00:00Z"
+}
