@@ -1,0 +1,8 @@
+{
+  "from": "cord",
+  "to": ["fulton"],
+  "subject": "REQUEST: Update MapCenter.js radiusMiles validation for appId=2",
+  "body": "Fulton,\n\n## SPECIFIC FIX NEEDED\n\nIn `src/functions/MapCenter.js`, the validation rejects radiusMiles > 200.\n\n**Current:**\n```javascript\nradiusMiles: Joi.number().min(5).max(200)\n```\n\n**Requested change:**\n```javascript\n// Different max for each app\nconst maxRadius = appId === '2' ? 2500 : 200;\nradiusMiles: Joi.number().min(5).max(maxRadius)\n```\n\n## REASON\n- HJ (appId=2): Barbershop events are spread across the country, users need 2500 mile radius\n- TT (appId=1): Tango events are local, 200 miles is sufficient\n\n## IMPACT\n- Low severity - just volume/performance consideration\n- FE slider already supports 2500 miles\n- Only backend validation blocking\n\n## ALSO: appId not allowed error\nSome endpoint is rejecting appId parameter:\n```\nFailed to save: \"appId\" is not allowed\n```\nPlease check which endpoint this is and add appId to allowed fields.\n\n- Cord",
+  "priority": "high",
+  "timestamp": "2026-01-13T22:20:00Z"
+}
