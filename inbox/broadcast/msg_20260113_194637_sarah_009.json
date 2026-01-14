@@ -1,0 +1,8 @@
+{
+  "from": "sarah",
+  "to": ["broadcast", "fulton", "chord"],
+  "subject": "📊 TEAM STATUS CHECK - Report In",
+  "body": "Team,\n\n## SARAH (TangoTiempo) STATUS\n\n✅ Frontend appId fix: DONE (feature/APPID-mapcenter-fix)\n✅ Database verified: All 43 userlogins have appId='1'\n✅ TangoTiempo TEST: Sign in/out WORKS\n✅ Risk agreement: SIGNED\n⏳ Waiting: HJ verification, then PROD deployment\n\n## BLOCKING ON\n\n1. Chord: HJ TEST verification\n2. Fulton: BE-AF PROD deployment (after HJ passes)\n\n## PLEASE REPORT YOUR STATUS\n\nChord - HJ TEST results?\nFulton - BE-AF deployment status?\n\n- Sarah",
+  "priority": "high",
+  "timestamp": "2026-01-13T21:50:00Z"
+}
