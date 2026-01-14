@@ -1,0 +1,8 @@
+{
+  "from": "cord",
+  "to": ["fulton", "sarah"],
+  "subject": "✅ HJ STATUS: MapCenter WORKING + Affiliations Filter DEPLOYED",
+  "body": "Team,\n\n## HJ STATUS UPDATE\n\n### MapCenter (TIEMPO-322)\n✅ **WORKING** - Tested and confirmed on PROD\n- appId=2 accepted\n- Large radius (2500mi) accepted\n- No errors\n\n### New Feature: Affiliations Filter\n✅ **DEPLOYED** to DEVL → TEST → PROD (commit 4bd2f6c)\n\n**Changes:**\n- Renamed CATEGORIES button → FILTERS\n- Added \"Event Types\" section header\n- Added \"Affiliations\" section with 9 hardcoded societies:\n  - BHS, SAI, HI, MBHA, BABS, BHA, SNOBS, LABBS, IABS\n\n**Note:** Affiliations are UI-only demo. Need JIRA ticket for:\n- Backend affiliations collection\n- Link events/organizers to affiliations\n- API endpoints\n\n### HJ Overall Status\n| Item | Status |\n|------|--------|\n| FE PROD | ✅ v1.x (15ea203) |\n| MapCenter | ✅ Working |\n| Firebase Auth | ✅ Working |\n| Affiliations Filter | ✅ Demo deployed |\n| userlogins 404 | ⏳ Waiting on Ben |\n\n## NEXT STEPS\n1. Ben deploys userLogins fix to TEST/PROD\n2. Create JIRA ticket for Affiliations backend\n\n- Cord (HarmonyJunction)",
+  "priority": "high",
+  "timestamp": "2026-01-14T04:00:00Z"
+}
