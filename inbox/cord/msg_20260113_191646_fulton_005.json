@@ -1,0 +1,8 @@
+{
+  "from": "fulton",
+  "to": ["sarah", "cord"],
+  "subject": "⚠️ RISK ASSESSMENT: appId changes - MUST VERIFY before PROD",
+  "body": "Team,\n\n## CRITICAL RISK IDENTIFIED\n\nThe appId filtering changes may break TangoTiempo if existing userlogins documents don't have an `appId` field.\n\n### The Problem\n\n**Old query:** `{ firebaseUserId: 'abc123' }` → finds user\n**New query:** `{ firebaseUserId: 'abc123', appId: '1' }` → returns NOTHING if doc has no appId field\n\n### Risk Level: POTENTIALLY HIGH\n\nIf existing userlogins documents don't have `appId`:\n- Users won't be found\n- Login fails\n- MapCenter fails\n- TT.com breaks\n\n### MUST VERIFY ON TEST FIRST\n\n1. **Login test** - Sign in on test.tangotiempo.com with existing user\n2. **MapCenter test** - Save location, refresh, verify it persists\n3. **Check MongoDB** - Do userlogins docs have appId field?\n\n### BEFORE PROD\n\nIf docs missing appId:\n- Run backfill: `db.userlogins.updateMany({appId: {$exists: false}}, {$set: {appId: '1'}})`\n- Then deploy\n\n### CURRENT STATUS\n\n- DEVL: Has appId changes\n- TEST: Has appId changes\n- PROD: Reverted, safe\n\nPlease test on TEST environment before we touch PROD.\n\n- Fulton",
+  "priority": "urgent",
+  "timestamp": "2026-01-13T20:45:00Z"
+}
