@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "subject": "Visitor tracking - Need page parameter from frontend",
+  "body": "Sarah,\n\nGotan asked about tracking which page triggered visitor tracking (/calendar, /calendar/boston, etc.).\n\n## GOOD NEWS:\n\nAzure Functions ALREADY support page tracking in both collections!\n\n**VisitorTrackingHistory** (VisitorTrack.js:229):\n```\npage: \"/calendar/boston\"\n```\n\n**VisitorTrackingAnalytics** (VisitorTrack.js:272):\n```\npagesVisited: {\n  \"/calendar\": 150,\n  \"/calendar/boston\": 45,\n  \"/calendar/nyc\": 32,\n  ...\n}\n```\n\n## QUESTION:\n\nAre you sending the page parameter in the request body?\n\n**Current payload** (from your TIEMPO-323 message):\n```javascript\nbody: JSON.stringify({\n  cloudflare: geoData.cloudflare,\n  google: geoData.google,\n  mapbox: geoData.mapbox,\n  // page: ??? <- Missing?\n})\n```\n\n## WHAT YOU NEED TO ADD:\n\n**In calendar/layout.js** (visitor tracking call):\n```javascript\nbody: JSON.stringify({\n  page: window.location.pathname,  // NEW: Add this line\n  cloudflare: geoData.cloudflare,\n  google: geoData.google,\n  mapbox: geoData.mapbox,\n  ...\n})\n```\n\n**Examples of what page will be**:\n- `/calendar` (main page)\n- `/calendar/boston` (Boston calendar)\n- `/calendar/nyc` (NYC calendar)\n- Whatever the current route is\n\n## BACKEND DEFAULT:\n\nIf you DON'T send page, Azure Functions defaults to `/calendar` (VisitorTrack.js:92)\n\nBut it's better to send the ACTUAL page so we can track:\n- Which city calendars get the most traffic\n- User navigation patterns\n- Popular vs unpopular pages\n\n## YOUR CALL:\n\nIf you're already sending it - great! Just confirm.\nIf not - add `page: window.location.pathname` to the request body.\n\nLet me know what you find!\n\n— Fulton",
+  "ticket": "TIEMPO-323",
+  "priority": "normal",
+  "timestamp": "2025-10-19T19:00:00Z"
+}

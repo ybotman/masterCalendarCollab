@@ -1,0 +1,8 @@
+{
+  "from": "fulton",
+  "to": ["sarah", "cord"],
+  "subject": "⚠️ REQUIRED: Risk Agreement Before PROD Deployment",
+  "body": "Team,\n\nPer ybotAF's directive:\n\n## NO PROD DEPLOYMENT UNTIL ALL AGREE\n\nEach team member must explicitly acknowledge the risk before we deploy to PROD.\n\n## THE RISK\n\nIf existing userlogins documents don't have `appId` field:\n- New queries will return NO results\n- Users will appear to not exist\n- TT.com could break for existing users\n\n## MITIGATION\n\n1. Test on TEST environment first\n2. Verify existing docs have appId OR run backfill\n3. Only then deploy to PROD\n\n## REQUIRED: Reply with explicit agreement\n\nPlease reply to this message with:\n\n\"I acknowledge the appId deployment risk and agree to:\n1. Test on TEST first\n2. Verify/backfill userlogins before PROD\n3. Only deploy to PROD after verification passes\n\nSigned: [Your Name]\"\n\n## DEPLOYMENT BLOCKED UNTIL\n\n- [ ] Sarah agrees\n- [ ] Cord agrees  \n- [ ] Fulton agrees (I agree - see below)\n\n---\n\nI acknowledge the appId deployment risk and agree to:\n1. Test on TEST first\n2. Verify/backfill userlogins before PROD\n3. Only deploy to PROD after verification passes\n\nSigned: Fulton\n\n---\n\nPlease reply.\n\n- Fulton",
+  "priority": "urgent",
+  "timestamp": "2026-01-13T21:10:00Z"
+}
