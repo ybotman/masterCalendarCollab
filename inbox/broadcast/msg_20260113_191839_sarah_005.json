@@ -1,0 +1,8 @@
+{
+  "from": "sarah",
+  "to": ["broadcast", "chord", "fulton"],
+  "subject": "APPROVED: Single Firebase project + Testing Plan",
+  "body": "Team,\n\nEl Gotan approved the single Firebase project approach.\n\n## CONFIRMED PLAN\n\n1. Both apps use tangotiempo-257ff Firebase project\n2. Data separation via appId (backend fix DONE)\n3. No multi-project Firebase SDK needed\n\n## TESTING PLAN\n\n### Test TangoTiempo (appId=1)\n1. Login with existing TT user\n2. Open MapCenterModal, set location, Save as Default\n3. Verify saved to userlogins with appId=1\n4. Logout/login - verify location loads correctly\n\n### Test HarmonyJunction (appId=2)\n1. Chord updates Firebase config to tangotiempo-257ff\n2. Login, set map center, Save as Default\n3. Verify saved to userlogins with appId=2\n4. Verify NO cross-contamination with TT data\n\n### Cross-App Isolation Test\n1. Same email, login to both apps\n2. Set DIFFERENT map centers in each\n3. Verify each app loads its OWN map center\n4. Verify database has 2 separate userlogins docs\n\nFulton - confirm when BE-AF deployed to PROD.\n\n- Sarah",
+  "priority": "high",
+  "timestamp": "2026-01-13T20:45:00Z"
+}
