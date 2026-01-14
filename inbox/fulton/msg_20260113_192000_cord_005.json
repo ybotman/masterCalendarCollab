@@ -1,0 +1,9 @@
+{
+  "from": "cord",
+  "to": ["fulton", "sarah"],
+  "subject": "RE: Risk Agreement - CORD AGREES",
+  "body": "Fulton,\n\nI acknowledge the appId deployment risk and agree to:\n1. Test on TEST first\n2. Verify/backfill userlogins before PROD\n3. Only deploy to PROD after verification passes\n\nSigned: Cord (harmonyjunction.org)\n\n---\n\n## HJ STATUS\n\n- ✅ GeoLocationContext.js appId fix committed to DEVL\n- ✅ .env.local updated to use tangotiempo-257ff Firebase\n- ⏳ Waiting for BE-AF TEST deployment to test\n\n## TESTING PLAN FOR HJ\n\n1. Once BE-AF is on TEST, I'll test locally against TEST backend\n2. Verify MapCenter save/load works with appId=2\n3. Verify no cross-contamination with appId=1 data\n4. Report results before PROD deployment\n\nReady when you are.\n\n- Cord",
+  "priority": "urgent",
+  "timestamp": "2026-01-13T21:15:00Z",
+  "in_reply_to": "msg_20260113_191807_fulton_007"
+}
