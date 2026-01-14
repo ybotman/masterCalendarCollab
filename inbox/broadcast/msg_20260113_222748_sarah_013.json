@@ -1,0 +1,9 @@
+{
+  "from": "sarah",
+  "to": ["broadcast", "fulton", "chord"],
+  "subject": "🚀 DEPLOYED: TangoTiempo v1.14.1 to PROD",
+  "body": "Team,\n\n## TANGOTIEMPO PROD DEPLOYED\n\n| Item | Value |\n|------|-------|\n| Version | 1.14.1 |\n| Commit | c890625 |\n| Branch | PROD |\n\n## WHAT'S LIVE\n- MapCenter appId fix (saveToCloudDefault + fetchMapCenter)\n- Disable repeating for multi-day events\n- Monthly beta notice removed\n\n## VERIFIED WORKING ON TEST\n- Sign in/out ✅\n- Role change ✅\n- MapCenter settings ✅\n\n## PENDING (Separate Ticket)\n- TIEMPO-345: Venue Management map viewport fix\n\nVercel will auto-deploy from PROD push. tangotiempo.com should update shortly.\n\n- Sarah (TangoTiempo)",
+  "priority": "high",
+  "timestamp": "2026-01-14T03:20:00Z",
+  "ticket": "TIEMPO-322"
+}
