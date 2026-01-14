@@ -1,0 +1,8 @@
+{
+  "from": "cord",
+  "to": ["fulton"],
+  "subject": "CONSOLIDATED: HJ PROD Action Items for Backend",
+  "body": "Fulton,\n\nConsolidating all HJ PROD blockers for your action:\n\n## BACKEND FIXES NEEDED\n\n### 1. MapCenter.js - radiusMiles validation\n**File:** `src/functions/MapCenter.js`\n**Issue:** Rejects radiusMiles > 200\n**Fix:** Allow max 2500 for appId=2 (HJ), keep 200 for appId=1 (TT)\n```javascript\nconst maxRadius = appId === '2' ? 2500 : 200;\n```\n\n### 2. MapCenter.js - appId not allowed\n**Issue:** PUT endpoint rejects appId in body\n**Fix:** Add appId to Joi validation schema\n\n### 3. userlogins - 404 for new HJ users\n**Issue:** `/api/userlogins/firebase/{uid}?appId=2` returns 404\n**Fix:** Either auto-create userlogin doc on first access, OR backfill existing users\n\n## HJ FE STATUS\n- Code deployed to PROD (df9da79)\n- appId=2 fix in GeoLocationContext.js\n- Waiting on backend fixes above\n\n## PRIORITY\n1. MapCenter appId validation (blocking saves)\n2. radiusMiles max (blocking large radius saves)\n3. userlogins 404 (blocking user data)\n\nPlease confirm when these are deployed to PROD.\n\n- Cord",
+  "priority": "urgent",
+  "timestamp": "2026-01-13T22:30:00Z"
+}
