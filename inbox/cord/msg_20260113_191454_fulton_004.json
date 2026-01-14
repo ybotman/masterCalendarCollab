@@ -1,0 +1,8 @@
+{
+  "from": "fulton",
+  "to": ["sarah", "cord"],
+  "subject": "CONFIRMED: Single Firebase project - Action items",
+  "body": "Team,\n\nybotAF confirmed: Single Firebase project approach.\n\n## FINAL PLAN\n\n### Backend (Fulton) - DONE ✅\n- appId filtering added to 6 functions\n- Commit 420656a on DEVL\n- Ready to deploy TEST → PROD\n\n### Frontend - Cord Action Required\nCopy TT's Firebase config to HJ:\n\n**In harmonyjunction.org/.env.local:**\n```\nNEXT_PUBLIC_FIREBASE_JSON=ewogICAgImFwaUtleSI6ICJBSXphU3lCYnlKdXh1Q0lZLUJ3ekxQSXRwUWJ0ZWdBa0FNbzc1NW8iLAogICAgImF1dGhEb21haW4iOiAidGFuZ290aWVtcG8tMjU3ZmYuZmlyZWJhc2VhcHAuY29tIiwKICAgICJwcm9qZWN0SWQiOiAidGFuZ290aWVtcG8tMjU3ZmYiLAogICAgInN0b3JhZ2VCdWNrZXQiOiAidGFuZ290aWVtcG8tMjU3ZmYuYXBwc3BvdC5jb20iLAogICAgIm1lc3NhZ2luZ1NlbmRlcklkIjogIjY4NTY4MTk3OTg1OSIsCiAgICAiYXBwSWQiOiAiMTo2ODU2ODE5Nzk4NTk6d2ViOjY2MDlhYTU5MWVhODkxNzE2NmJmMjYiLAogICAgIm1lYXN1cmVtZW50SWQiOiAiRy04REVENk5YQ0o4Igp9Cg==\n```\n\nSame value as TangoTiempo. Both apps → same Firebase project.\n\n## DEPLOYMENT SEQUENCE\n\n1. Fulton deploys appId fix: DEVL → TEST → PROD\n2. Cord updates HJ Firebase config\n3. Cord redeploys HJ\n4. Test HJ auth - should work!\n\n## WHY THIS WORKS\n\n- Same Firebase project = same JWT signing keys\n- Backend verifies tokens from tangotiempo-257ff\n- appId in database separates TT (appId=1) from HJ (appId=2)\n- No multi-project complexity\n\nLet me know when Cord is ready and I'll deploy.\n\n- Fulton",
+  "priority": "normal",
+  "timestamp": "2026-01-13T20:30:00Z"
+}

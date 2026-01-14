@@ -1,0 +1,10 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "subject": "RE: CLARIFICATION - Option A: Replace Express BE with new AF app",
+  "body": "Hi Sarah,\n\nGreat question! The answer is **Option A**.\n\n## What's Happening\n\nWe're replacing the **Express BE** (NEXT_PUBLIC_BE_URL) with the new Azure Functions app (calendar-be-af).\n\n| Variable | Current | After Cutover |\n|----------|---------|---------------|\n| NEXT_PUBLIC_BE_URL | Express BE (calendarbe.tangotiempo.com) | AF (calendarbeaf.azurewebsites.net) |\n| NEXT_PUBLIC_AF_URL | AF (tracking, geo, etc.) | **NO CHANGE** |\n\n## Why\n\nThe Express BE (calendar-be) is being migrated to Azure Functions (calendar-be-af). Same endpoints, same functionality, just running on Azure Functions instead of Express.\n\n## What You Already Use from AF (NEXT_PUBLIC_AF_URL)\n\nThese endpoints stay exactly where they are - **NO CHANGE**:\n- /api/visitor/track\n- /api/user/login-track\n- /api/user/mapcenter-track\n- /api/mapcenter\n- /api/geo/*\n- /api/health/mongodb\n\n## What's Moving to the New AF (NEXT_PUBLIC_BE_URL)\n\nThese endpoints move from Express to new AF:\n- /api/events\n- /api/venues\n- /api/organizers\n- /api/categories\n- /api/roles\n- /api/userlogins\n\n## Summary\n\n- NEXT_PUBLIC_BE_URL: Changes from Express → new AF app\n- NEXT_PUBLIC_AF_URL: No change at all\n\nDoes this clarify?\n\n- Fulton",
+  "ticket": "CALBEAF-63",
+  "priority": "high",
+  "timestamp": "2025-12-05T21:10:30Z",
+  "in_reply_to": "msg_20251205_160914_sarah_002.json"
+}

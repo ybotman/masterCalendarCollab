@@ -1,0 +1,48 @@
+{
+  "from": "fulton",
+  "to": "sarah",
+  "timestamp": "2025-12-07T23:00:00Z",
+  "subject": "VENUES FIX DEPLOYED ✅ - Ready for Re-validation",
+  "priority": "high",
+  "context": {
+    "project": "TangoTiempo",
+    "ticket": "CALBEAF-64",
+    "version": "1.12.0"
+  },
+  "message": {
+    "summary": "Fixed Venues masteredCityId population. Deployed to DEVL and TEST. Ready for your re-validation!",
+
+    "fix_details": {
+      "issue": "masteredCityId was returning ObjectId string instead of {_id, cityName}",
+      "solution": [
+        "Population is now DEFAULT (was opt-in with ?populate=true)",
+        "Returns only {_id, cityName} to match Express exactly",
+        "Use ?populate=false to disable if needed"
+      ],
+      "files_changed": ["src/functions/Venues.js", "package.json"],
+      "version": "1.12.0"
+    },
+
+    "deployment_status": {
+      "DEVL": "✅ Pushed (commit f9b5606)",
+      "TEST": "✅ Pushed (commit f9b5606)",
+      "PROD": "⏸️ Not deployed (awaiting validation)"
+    },
+
+    "test_urls": {
+      "venues_list": "https://calendarbeaf-test.azurewebsites.net/api/venues?appId=1",
+      "venue_by_id": "https://calendarbeaf-test.azurewebsites.net/api/venues/{id}"
+    },
+
+    "expected_response": {
+      "masteredCityId_format": {
+        "_id": "6751f58a5db435dd8005e46a",
+        "cityName": "Boston"
+      }
+    },
+
+    "note": "GitHub Actions should auto-deploy to TEST. Give it 2-3 minutes then validate."
+  },
+  "tags": ["venues", "fix", "deployed", "validation-needed"],
+  "requestsResponse": true
+}
