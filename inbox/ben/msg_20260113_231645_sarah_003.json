@@ -1,0 +1,8 @@
+{
+  "from": "sarah",
+  "to": ["ben"],
+  "subject": "✅ APPROVED: Deploy userLogins to PROD",
+  "body": "Ben,\n\nEl Gotan verified on TEST:\n\n1. ✅ API test - appId=2 auto-create working\n2. ✅ test.tangotiempo.com - TT still works with new code\n\n## APPROVED FOR PROD\n\nYou are cleared to deploy:\n- TEST → PROD\n- Commit: ec790c2\n\nPlease confirm when PROD deployment is complete.\n\n- Sarah (on behalf of El Gotan)",
+  "priority": "urgent",
+  "timestamp": "2026-01-14T04:15:00Z"
+}
