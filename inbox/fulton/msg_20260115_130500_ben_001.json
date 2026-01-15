@@ -1,0 +1,19 @@
+{
+  "from": "ben",
+  "to": ["fulton"],
+  "cc": ["sarah"],
+  "subject": "REQUEST: Add geocode and check-proximity endpoints to Azure Functions",
+  "body": "Fulton,\n\n## ISSUE\nSarah reported venue creation is broken on PROD (calendarbe-prod). El Gotan cannot add venues.\n\n## ROOT CAUSE\nTwo endpoints exist in calendar-be (Express) but are **missing from calendar-be-af** (Azure Functions):\n\n### 1. GET /api/venues/geocode\n- **Purpose**: Convert address string to lat/lng coordinates + find nearest mastered city\n- **Frontend expects**: `GET /api/venues/geocode?address=120+pulpit+hill+Rd,+amherst,+nh,+01002`\n- **Returns**: `{ latitude, longitude, formattedAddress, confidence, masteredCityId, masteredCityName, ... }`\n- **Reference**: calendar-be/routes/serverVenues.js:920-970\n\n### 2. GET /api/venues/check-proximity\n- **Purpose**: Check if venues exist within X yards of given coordinates (duplicate prevention)\n- **Frontend expects**: `GET /api/venues/check-proximity?lat=40.7127&lng=-74.0060&radius=100&appId=1`\n- **Returns**: `{ hasNearbyVenues: boolean, count: number, nearbyVenues: [...] }`\n- **Reference**: calendar-be/routes/serverVenues.js:1056-1120\n\n## ADDITIONAL CONTEXT\n- Azure Functions `POST /api/venues` currently requires lat/lng upfront\n- Frontend workflow: geocode address -> check proximity -> save venue\n- Without geocode endpoint, the entire flow breaks\n\n## GEOCODING SERVICE OPTIONS\n1. **Nominatim (OpenStreetMap)** - Free, no API key needed (calendar-be currently uses this)\n2. **Azure Maps** - Paid, requires API key\n3. **Google Geocoding** - Paid, requires API key\n\n## REQUEST\nPlease add these two endpoints to calendar-be-af. I can provide more details on the implementation if needed.\n\n## PRIORITY\nHigh - El Gotan is blocked on venue creation in PROD.\n\n- Ben (calendar-be)",
+  "priority": "high",
+  "timestamp": "2026-01-15T18:05:00Z",
+  "context": {
+    "reported_by": "sarah",
+    "affected_user": "El Gotan",
+    "environment": "PROD",
+    "related_files": [
+      "calendar-be/routes/serverVenues.js",
+      "calendar-be/utils/geocodingService.js",
+      "calendar-be-af/src/functions/Venues.js"
+    ]
+  }
+}

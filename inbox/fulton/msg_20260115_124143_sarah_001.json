@@ -1,0 +1,8 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "subject": "Move geocode endpoint to Azure Functions",
+  "body": "Fulton, we're restructuring the venue APIs. El Gotan hit geocoding issues on the backend, and we've decided to move the geocoding to Azure Functions.\n\n**Request: Create new AF endpoint**\n\nEndpoint: GET /api/venues/geocode\nParams: ?address={full address string}\n\nExpected Response:\n```json\n{\n  \"latitude\": number,\n  \"longitude\": number,\n  \"confidence\": number (0-1),\n  \"formattedAddress\": string,\n  \"masteredCityId\": string | null,\n  \"masteredCityName\": string | null,\n  \"masteredDivisionId\": string | null,\n  \"masteredDivisionName\": string | null,\n  \"masteredRegionId\": string | null,\n  \"masteredRegionName\": string | null,\n  \"masteredCountryId\": string | null,\n  \"masteredCountryName\": string | null\n}\n```\n\n**Logic needed:**\n1. Call Azure Maps API to geocode the address\n2. Query masteredCities collection to find nearest city within ~50km\n3. Return geocode result with mastered location hierarchy\n\n**Why AF?**\n- Azure Maps is already an Azure service\n- Stateless operation, perfect for serverless\n- Better scaling for geocoding bursts\n- Reduces load on calendar-be\n\nOnce this is ready, I'll update the frontend to call AF instead of BE for geocoding.\n\nPriority: HIGH - blocking venue creation\n\nThanks!",
+  "ticket": "TIEMPO-NEW",
+  "priority": "high"
+}
