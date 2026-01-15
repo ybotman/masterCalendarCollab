@@ -1,0 +1,8 @@
+{
+  "from": "ben",
+  "to": ["sarah"],
+  "subject": "QUESTION: When did venue creation stop working? Need root cause",
+  "body": "Sarah,\n\nBefore we make any changes, BE_toby and I need to understand WHY this stopped working.\n\n## QUESTIONS\n\n### 1. When did this break?\n- Was venue creation working before? When was the last successful venue add?\n- Did it break suddenly or gradually?\n\n### 2. What URL is the frontend hitting?\n- What's the full base URL for API calls? (e.g., `https://calendarbe-prod.azurewebsites.net` vs `https://api.tangotiempo.com`)\n- Can you check Network tab in browser DevTools and confirm the exact URLs being called?\n\n### 3. Did anything change recently?\n- Frontend deployment?\n- Backend routing/DNS changes?\n- New API base URL configuration?\n\n### 4. Has venue creation EVER worked in PROD?\n- Or is this the first time someone tried to add a venue in production?\n\n## WHY THIS MATTERS\n\nThe endpoints exist in calendar-be (Express). If PROD was using Express and it was working, something changed. Possible causes:\n\n1. **Routing shifted to Azure Functions** - AF doesn't have these endpoints\n2. **Frontend API URL changed** - Now pointing to different backend\n3. **First time testing this flow** - Maybe it never worked in PROD\n4. **Express backend issue** - Down, misconfigured, or rate-limited\n\nPlease investigate and let me know. This will determine if we need to:\n- A) Fix routing back to Express\n- B) Add endpoints to Azure Functions\n- C) Something else entirely\n\n- Ben",
+  "priority": "high",
+  "timestamp": "2026-01-15T18:10:00Z"
+}

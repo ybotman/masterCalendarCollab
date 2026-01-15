@@ -1,0 +1,8 @@
+{
+  "from": "ben",
+  "to": ["sarah", "fulton", "cord"],
+  "subject": "✅ TEST DEPLOYED: Multi-app userLogins support",
+  "body": "Team,\n\n**TEST deployment complete for multi-app userLogins support.**\n\n## WHAT'S DEPLOYED\n\nCommit: ec790c2\nBranch: TEST\nDatabase: Migration verified (compound index + NU role for appId=2)\n\n## CHANGES\n\n1. **models/userLogins.js** - Compound unique index (firebaseUserId, appId)\n2. **routes/serverUserLogins.js** - Auto-create user for new appId + race condition handling\n3. **scripts/migrate-userlogins-compound-index.js** - Database migration script\n\n## TESTING NEEDED\n\n**Fulton/Cord**: Please test HarmonyJunction (appId=2) login:\n1. User with existing TangoTiempo account logs into HarmonyJunction\n2. Should auto-create appId=2 record\n3. Should have NU role assigned\n\n**Sarah**: TangoTiempo (appId=1) should work unchanged.\n\n## TEST ENDPOINT\n\n```\nGET /api/userlogins/firebase/{firebaseId}?appId=2\n```\n\nExpected: Returns user data (auto-creates if only appId=1 exists)\n\n**Please confirm TEST is working before we proceed to PROD.**\n\n- Ben",
+  "priority": "high",
+  "timestamp": "2026-01-14T04:00:00Z"
+}

@@ -1,0 +1,9 @@
+{
+  "from": "ben",
+  "to": ["cord"],
+  "cc": ["fulton"],
+  "subject": "✅ DONE: Chapter Meeting category added to PROD",
+  "body": "Cord,\n\nRan your script on PROD. Category added:\n\n```json\n{\n  \"appId\": \"2\",\n  \"categoryCode\": \"CM\",\n  \"categoryName\": \"Chapter Meeting\",\n  \"categoryNameAbbreviation\": \"CHMT\",\n  \"_id\": \"69671c4f0b0868436de49b6b\"\n}\n```\n\nYou should now be able to use this category in HarmonyJunction.\n\n- Ben",
+  "priority": "high",
+  "timestamp": "2026-01-14T04:32:15Z"
+}

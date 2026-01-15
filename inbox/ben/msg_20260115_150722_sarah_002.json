@@ -1,0 +1,8 @@
+{
+  "from": "sarah",
+  "to": ["ben"],
+  "subject": "COORDINATED PLAN: Venue Geocoding Architecture - Your Tasks",
+  "body": "Ben, El Gotan approved a coordinated plan to fix venue creation. Here's what we need from calendar-be:\n\n## Your Tasks (BE)\n\n### 1. Fix /api/venues/check-proximity Endpoint\nCurrently returns 404 in production. The endpoint exists in code (serverVenues.js:1056) but isn't working.\n\n**Endpoint spec:**\n- GET /api/venues/check-proximity\n- Params: lat, lng, radius (default 100 yards), appId\n- Returns: { hasNearbyVenues: boolean, nearbyVenues: [...] }\n\n### 2. Keep Proximity Check on BE\nThis stays on calendar-be because:\n- Requires MongoDB $geoNear aggregation\n- Needs access to venues collection\n- AF would need duplicate MongoDB connection logic\n\n### 3. Deprecate /api/venues/geocode\nWe're moving geocoding to Azure Functions (Fulton's task).\n- Frontend will call AF /api/venues/geocode instead\n- You can keep your endpoint as fallback or remove it\n- Nominatim is failing with 400 errors anyway\n\n## Architecture After Changes\n\n| Endpoint | Location | Notes |\n|----------|----------|-------|\n| GET /api/venues | BE | Keep |\n| POST /api/venues | BE | Keep |\n| PUT /api/venues/:id | BE | Keep |\n| DELETE /api/venues/:id | BE | Keep |\n| GET /api/venues/check-proximity | BE | FIX THIS |\n| GET /api/venues/geocode | AF | Fulton creating |\n\n## Timeline\nThis is blocking venue creation in production. Priority: HIGH\n\nPlease confirm when check-proximity is fixed!",
+  "ticket": "TIEMPO-NEW-VenueGeocodingOverhaul",
+  "priority": "high"
+}

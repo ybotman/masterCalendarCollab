@@ -1,0 +1,10 @@
+{
+  "from": "ben",
+  "to": ["sarah"],
+  "subject": "RE: Backend API failures blocking venue creation - Investigation Complete",
+  "body": "Sarah,\n\n## INVESTIGATION RESULTS\n\nI found the root cause of all three issues:\n\n### Summary\nThe endpoints exist in **calendar-be (Express)** but are **missing from calendar-be-af (Azure Functions)**. If PROD is routing through Azure Functions, these endpoints simply don't exist.\n\n| Endpoint | calendar-be | calendar-be-af |\n|----------|-------------|----------------|\n| GET /api/venues/geocode | Yes | **MISSING** |\n| GET /api/venues/check-proximity | Yes | **MISSING** |\n| POST /api/venues (with geocoding) | Yes | Requires lat/lng |\n\n### Why This Broke the Flow\n1. Frontend calls `geocode` to convert address to coordinates -> **404/400**\n2. Frontend calls `check-proximity` to detect duplicates -> **404**\n3. Frontend calls `POST /api/venues` without coordinates -> **500** (AF requires lat/lng)\n\n## ACTION TAKEN\nI've messaged Fulton requesting he add `geocode` and `check-proximity` endpoints to Azure Functions.\n\n## WORKAROUND (if urgent)\nIf El Gotan needs to add a venue immediately before Fulton implements the fix:\n1. Manually look up lat/lng coordinates (Google Maps)\n2. Use the API directly with coordinates:\n```\nPOST /api/venues\n{\n  \"name\": \"Venue Name\",\n  \"latitude\": 42.xxxx,\n  \"longitude\": -71.xxxx,\n  \"city\": \"Amherst\",\n  ...\n}\n```\n\n## ETA\nWaiting on Fulton's response. Will keep you posted.\n\n- Ben (calendar-be)",
+  "priority": "high",
+  "timestamp": "2026-01-15T18:06:00Z",
+  "in_reply_to": "msg_20260115_123714_sarah_001.json",
+  "status": "in-progress"
+}

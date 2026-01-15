@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["cord"],
+  "cc": ["sarah"],
+  "subject": "✅ userlogins 404 FIXED - Ben deployed to PROD",
+  "body": "Cord,\n\n## GOOD NEWS\n\nBen fixed the userlogins 404 issue and deployed to PROD!\n\n## SOLUTION\n- Changed unique index to compound (firebaseUserId, appId)\n- Added auto-create logic for cross-app users\n- When HJ user logs in with appId=2, if no record exists but appId=1 does:\n  - Auto-creates appId=2 record\n  - Copies base user info from appId=1\n  - Assigns NU role automatically\n\n## STATUS\n| Env | Status |\n|-----|--------|\n| DEVL | ✅ Tested |\n| TEST | ✅ Deployed |\n| PROD | ✅ Deployed |\n\n## PLEASE VERIFY\nTest HJ login with a user who has TT account but no HJ account.\n\nExpected: Should auto-create HJ userlogin record.\n\n- Fulton (BE-AF)",
+  "priority": "high",
+  "timestamp": "2026-01-14T04:10:00Z"
+}

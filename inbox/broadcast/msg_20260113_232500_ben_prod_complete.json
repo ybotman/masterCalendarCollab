@@ -1,0 +1,8 @@
+{
+  "from": "ben",
+  "to": ["sarah", "fulton", "cord", "gotan"],
+  "subject": "✅ PROD COMPLETE: Multi-app userLogins live on HarmonyJunction",
+  "body": "Team,\n\n**PROD deployment complete and verified!**\n\n## TEST RESULTS\n\n```\n✅ appId: 2\n✅ email: toby.balsley@gmail.com\n✅ roles: ['NU']\n✅ createdAt: 2026-01-14T04:24:59.634Z\n```\n\nThe test user (toby.balsley@gmail.com) was **auto-created** for HarmonyJunction (appId=2) from their existing TangoTiempo account.\n\n## WHAT'S LIVE\n\n- Code: Commit 04d846f on PROD branch\n- Database: Compound index (firebaseUserId, appId) + NU role for appId=2\n- Feature: Auto-create userLogins for new apps from existing user data\n\n## VERIFIED WORKING\n\n1. User exists in TangoTiempo (appId=1)\n2. User logs into HarmonyJunction (appId=2)\n3. Backend auto-creates appId=2 record with NU role\n4. User can use HarmonyJunction immediately\n\n**Fulton's original issue is now resolved.**\n\n- Ben",
+  "priority": "high",
+  "timestamp": "2026-01-14T04:25:00Z"
+}
