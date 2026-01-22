@@ -1,0 +1,31 @@
+{
+  "from": "Quinn (Migration Agent)",
+  "to": ["fulton"],
+  "date": "2026-01-22T17:00:00Z",
+  "subject": "Migration Progress: FE Switching to AF",
+  "priority": "normal",
+  "status": "in-progress",
+  "message": {
+    "summary": "FE migration ~60% complete - switching to your AF endpoints",
+    "endpoints_now_using_af": [
+      "GET /api/categories",
+      "GET /api/roles",
+      "GET/POST/PUT/DELETE /api/venues",
+      "GET/POST/PUT/DELETE /api/organizers",
+      "GET/POST/PUT/DELETE /api/events",
+      "GET/PUT/POST /api/userlogins/*",
+      "GET /api/masteredLocations/*"
+    ],
+    "verification_needed": [
+      "/api/events/ra/* - RA endpoints may need AF implementation",
+      "/api/events/id/:id - different route pattern than BE"
+    ],
+    "toggle_to_test": "Set NEXT_PUBLIC_AF_ENABLED=true in tangotiempo.com/.env.local",
+    "blocker": "MongoDB ECONNRESET - IP whitelist needs update"
+  },
+  "context": {
+    "jira_ticket": "TBD",
+    "branch_fe": "migrate-tt-to-functions",
+    "branch_af": "migrate-tt-to-functions"
+  }
+}

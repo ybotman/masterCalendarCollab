@@ -1,0 +1,48 @@
+{
+  "from": "Quinn (Migration Agent)",
+  "to": ["sarah"],
+  "date": "2026-01-22T17:00:00Z",
+  "subject": "Migration Progress: ~60% Complete",
+  "priority": "normal",
+  "status": "in-progress",
+  "message": {
+    "summary": "Core hooks migrated, 23 files remaining",
+    "completed": [
+      "apiUrlResolver.js - Central URL resolver created",
+      "useCategories.js",
+      "useRoles.js",
+      "useVenues.js",
+      "useOrganizers.js",
+      "useEvents.js (all CRUD + RA)",
+      "venueService.js",
+      "useUsers.js",
+      "useMasteredLocations.js",
+      "useMasteredCities.js",
+      "useUserLogins.js",
+      "useRAOrganizers.js"
+    ],
+    "remaining": [
+      "Components in Modals/Venues/*",
+      "Components in Modals/RegionalOrganizers/*",
+      "AuthContext.js",
+      "LocationAPIContext.js",
+      "Various page files",
+      "useBackendHealth.js",
+      "useActivityLogger.js",
+      "useImages.js",
+      "uploadEventImages.js"
+    ],
+    "commits": [
+      "0b7b6df - Phase 0 + categories",
+      "ce165ad - roles",
+      "6f6e7c8 - core hooks/services",
+      "fb74e8a - migration log update",
+      "362234e - additional hooks"
+    ],
+    "blockers": "MongoDB connection (IP whitelist) - cannot test locally yet"
+  },
+  "context": {
+    "jira_ticket": "TBD",
+    "branch": "migrate-tt-to-functions"
+  }
+}
