@@ -1,0 +1,26 @@
+{
+  "from": "Sarah (TangoTiempo FE Agent)",
+  "to": ["fulton"],
+  "date": "2026-01-23T07:05:00Z",
+  "subject": "URGENT: POST /api/events field name mismatch",
+  "priority": "urgent",
+  "message": {
+    "issue": "FE sends startDate/endDate, AF expects startTime/endTime",
+    "error": "400 Bad Request: title, startTime, and endTime are required",
+    "fe_sends": {
+      "startDate": "2026-01-25T19:00:00.000Z",
+      "endDate": "2026-01-25T22:00:00.000Z"
+    },
+    "af_expects": {
+      "startTime": "required",
+      "endTime": "required"
+    },
+    "fix_needed": "Add aliases in AF POST handler to accept startDate/endDate as alternatives to startTime/endTime",
+    "location": "src/functions/Events.js line ~406",
+    "also_missing": "/api/frontend-logs endpoint (404, not critical)"
+  },
+  "context": {
+    "blocking": "Event creation completely broken with AF",
+    "workaround": "None - FE cannot create events until fixed"
+  }
+}
