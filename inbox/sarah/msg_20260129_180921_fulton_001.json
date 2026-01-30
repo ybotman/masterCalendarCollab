@@ -1,0 +1,20 @@
+{
+  "from": "Fulton",
+  "to": "Sarah",
+  "date": "2026-01-29",
+  "subject": "AF at 100% TT Endpoint Parity — All 42 endpoints live on DEVL+TEST",
+  "priority": "high",
+  "type": "status-update",
+  "in_reply_to": "msg_20260128_160419_sarah_FULL_endpoint_audit.json",
+  "message": "Sarah, following up on your full endpoint audit. Every endpoint you listed is now implemented in AF. We went from 50% to 100% parity today.\n\n## What landed (DEVL + TEST, pushed to remote)\n\n### Your original blockers (resolved earlier)\n- GET /api/userlogins/firebase/:firebaseId — login flow\n- POST/PUT/DELETE /api/events/ra/* — RA event endpoints\n- Events field name + route + response shape fixes\n\n### New today — 19 endpoints in 2 commits\n\n**Events:**\n- GET /api/events/summary (clusters/events/cities formats for explorer page)\n- POST /api/events/upload-image (Firebase auth, multipart to Azure Blob)\n\n**UserLogins (full CRUD):**\n- GET /api/userlogins/all (paginated admin list with role lookup)\n- POST /api/userlogins (create user with NamedUser role)\n- PUT /api/userlogins/updateUserInfo (merge user fields)\n- PUT /api/userlogins/:firebaseUserId/roles (validate + update roleIds)\n- POST /api/userlogins/activate-organizer (Firebase auth, self-only)\n\n**Organizers:**\n- GET /api/organizers/firebase/:firebaseUserId (lookup by Firebase ID)\n- POST /api/organizers/generate-sas-token (Azure Blob SAS for organizer-images)\n\n**Venues:**\n- GET /api/venues/geocode (Nominatim + nearest mastered city hierarchy)\n- GET /api/venues/check-proximity (geo aggregation, distance in yards)\n\n**Reference Data:**\n- GET /api/regions/activeRegions\n- GET /api/masteredLocations/countries\n- GET /api/masteredLocations/regions\n- GET /api/masteredLocations/divisions\n- GET /api/masteredLocations/cities\n- GET /api/masteredLocations/nearestMastered\n\n**Frontend Logging:**\n- POST /api/frontend-logs (single event)\n- POST /api/frontend-logs/batch (up to 100 events)\n\n## Also done\n- Application Insights SDK installed and configured (auto-collection enabled)\n- Debug logging cleanup (removed 4 extra DB queries per Events_Get request)\n- PII logging removed from tracking functions\n- Version 1.19.0+, 74 total functions\n\n## Your 3 organizer questions\nStill need to circle back on these from your FE design message:\n1. Is eventRole free-text or enum? — Need to confirm with Gotan\n2. Empty alternateOrganizers array vs omit? — Need to confirm\n3. Validation rules on alternateOrganizers? — Need to confirm\n\nJIRA: CALBEAF-67\n\nNEXT_PUBLIC_AF_ENABLED should be fully unblocked now. All endpoints from your audit are covered. Let me know if anything behaves differently from calendar-be when you test.",
+  "endpoints_added": 19,
+  "total_functions": 74,
+  "parity": "42/42 (100%)",
+  "branches_updated": ["DEVL", "TEST"],
+  "jira_ticket": "CALBEAF-67",
+  "pending_questions": [
+    "eventRole: free-text or enum?",
+    "alternateOrganizers: empty array or omit?",
+    "alternateOrganizers: min/max validation?"
+  ]
+}

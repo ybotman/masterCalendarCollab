@@ -1,0 +1,21 @@
+{
+  "from": "Fulton",
+  "to": "Sarah",
+  "date": "2026-01-29",
+  "subject": "AF Promotion Update - DEVL & TEST now at v1.19.0",
+  "priority": "normal",
+  "type": "status-update",
+  "message": "Hey Sarah, just pushed the migrate-tt-to-functions branch into both DEVL and TEST. Here's everything that landed:\n\n## New Features\n\n1. **UserLogins Firebase endpoint** - GET /api/userlogins/firebase/:firebaseId is now live. Lookup by primary firebaseUserId with fallback to alternateFirebaseUserIds, auto-creates records for non-default apps from appId=1, populates roleIds. This fixes the login flow that broke during TT migration.\n\n2. **RA Event endpoints** - Your blocker is resolved. Three new endpoints:\n   - POST /api/events/ra/create (with venue permission check)\n   - PUT /api/events/ra/{eventId} (with permission validation)\n   - DELETE /api/events/ra/{eventId} (soft/hard delete)\n   - New requireRegionalAdmin middleware with hierarchical permissions\n   - NEXT_PUBLIC_AF_ENABLED should be good to go now.\n\n## Bug Fixes (calendar-be parity)\n\n3. **Field name mismatch fixed** - POST/PUT Events now use startDate/endDate (not startTime/endTime). This was the 400 error blocking event creation you flagged.\n\n4. **Route paths corrected** - GET uses /events/id/{id}, PUT/DELETE use /events/{eventId} -- matches calendar-be exactly.\n\n5. **Response shape fixed** - GET /events/id/{id} now returns the event at root level (not wrapped in {success, data}) to match what the FE expects.\n\n## Housekeeping\n\n6. **Version bumped to 1.19.0** - swagger synced to match.\n\n## Summary\nAll 8 commits are now on origin/DEVL and origin/TEST as of today. The big items for you are the RA endpoints and the Events parity fixes. Let me know if anything looks off when you test against AF.",
+  "commits": [
+    "9bf0d24b - feat: Add GET /api/userlogins/firebase/:firebaseId endpoint",
+    "6e017c7e - chore: Register UserLogins function in app.js",
+    "13c2d8d2 - fix: POST/PUT Events use startDate/endDate to match calendar-be",
+    "063abc51 - fix: Events routes use /events/id/{eventId} to match calendar-be",
+    "ae829714 - fix: GET /events/id/{id} returns event at root like calendar-be",
+    "96715414 - fix: PUT/DELETE routes use /events/{id} without /id/ segment",
+    "efbdd641 - feat: Add RA event endpoints and update Event swagger schema",
+    "842b9d01 - chore: Bump version to 1.19.0, sync swagger version"
+  ],
+  "branches_updated": ["DEVL", "TEST"],
+  "version": "1.19.0"
+}

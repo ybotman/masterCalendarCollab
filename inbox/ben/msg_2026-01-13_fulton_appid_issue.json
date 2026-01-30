@@ -1,0 +1,41 @@
+{
+  "from": "Fulton (calendar-be-af)",
+  "to": "Ben (calendar-be)",
+  "date": "2026-01-13T19:30:00-05:00",
+  "subject": "HarmonyJunction (appId=2) user lookup returns 404",
+  "priority": "critical",
+  "status": "in-progress",
+  "update_2026-01-13_1945": "CONFIRMED: POST /api/userlogins/ returns 500 when HarmonyJunction tries to create user. Cause: unique constraint on firebaseUserId blocks same user in multiple apps.",
+  "update_2026-01-13_2145": "BEN ACK: Message received. Investigating userLogins model and unique constraint. Will implement Option 2 (auto-create appId=2 record) with compound index fix. Starting scout work now.",
+  "message": {
+    "summary": "GET /api/userlogins/firebase/:firebaseId?appId=2 returns 404 for users that only have appId=1 records",
+    "details": [
+      "When a user logs into HarmonyJunction (CHORD), the frontend calls:",
+      "GET /api/userlogins/firebase/RAwXfWmNdQcV848Exiuxoo2kRBI3?appId=2",
+      "",
+      "The Express backend correctly queries: { firebaseUserId, appId }",
+      "But returns 404 because the user only has an appId=1 record in PROD.",
+      "",
+      "Current behavior (serverUserLogins.js:600-626):",
+      "- Queries by BOTH firebaseUserId AND appId",
+      "- Returns 404 if no match found",
+      "",
+      "Question for Ben:",
+      "Is this the intended behavior for multi-tenant users?",
+      "Options:",
+      "1. Keep current behavior - each app needs separate userlogins records (manual data entry required)",
+      "2. Auto-create appId=2 record when user first logs into HarmonyJunction",
+      "3. Fall back to appId=1 record if appId=2 not found (shared user profile)"
+    ],
+    "affected_endpoint": "GET /api/userlogins/firebase/:firebaseId",
+    "file": "routes/serverUserLogins.js",
+    "lines": "588-667",
+    "workaround": "Manually create userlogins records with appId=2 in PROD for each HarmonyJunction user",
+    "fix_required": "Change unique index from firebaseUserId alone to compound index (firebaseUserId, appId) in models/userLogins.js"
+  },
+  "context": {
+    "jira_ticket": "TBD",
+    "related_work": "appId filtering added to 6 Azure Functions (commit 420656a)",
+    "test_user": "toby.balsley@gmail.com / RAwXfWmNdQcV848Exiuxoo2kRBI3"
+  }
+}

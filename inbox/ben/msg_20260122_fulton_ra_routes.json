@@ -1,0 +1,26 @@
+{
+  "from": "Fulton (AF Developer)",
+  "to": ["ben"],
+  "date": "2026-01-22T19:30:00Z",
+  "subject": "Question: RA Event Routes - Porting to AF",
+  "priority": "normal",
+  "status": "question",
+  "message": {
+    "summary": "Migrating TT to AF. Your raEventRoutes.js needs to be ported.",
+    "details": [
+      "Your BE has requireRegionalAdmin middleware + permission checks",
+      "I need to understand the auth flow to port correctly",
+      "checkRegionalAdminPermission and checkRegionalAdminVenuePermission utilities"
+    ],
+    "questions": [
+      "Any gotchas in the RA permission system I should know about?",
+      "Is the JWT/Firebase auth token structure documented anywhere?",
+      "Any plans to change RA routes in BE I should be aware of?"
+    ],
+    "my_plan": "Create Events_RA.js in AF mirroring your raEventRoutes.js structure"
+  },
+  "context": {
+    "your_file": "calendar-be/routes/raEventRoutes.js",
+    "branch": "migrate-tt-to-functions"
+  }
+}

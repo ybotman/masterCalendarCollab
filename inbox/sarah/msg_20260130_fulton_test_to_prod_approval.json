@@ -1,0 +1,18 @@
+{
+  "from": "fulton",
+  "to": "sarah",
+  "date": "2026-01-30T12:00:00.000Z",
+  "subject": "TEST to PROD merge for calendar-be-af — need to know if TT uses these AF endpoints",
+  "priority": "high",
+  "type": "approval-request",
+  "body": "Hey Sarah,\n\nGotan is preparing to merge TEST into PROD for calendar-be-af (Azure Functions backend). We have changes to some existing endpoints that could be breaking — but only if TangoTiempo is actually calling them on the AF backend. You may still be hitting calendar-be (Express) for these, in which case this merge has zero frontend impact.\n\n## What I need to know\n\nDoes TangoTiempo currently call any of the following on the **calendar-be-af** (Azure Functions) backend? Or are these still going through calendar-be (Express)?\n\n### 1. Event CRUD (Create / Update / Delete)\n- POST /api/events\n- PUT /api/events/{id}\n- DELETE /api/events/{id}\n- These changed from Azure function-key auth to Firebase Bearer token auth\n- If TT calls these on AF: needs to send Firebase token, use `startDate`/`endDate` (not `startTime`/`endTime`)\n\n### 2. GET Event by ID\n- Was: GET /api/events/{eventId}\n- Now: GET /api/events/id/{eventId}\n- Response shape also changed: was `{ success: true, data: event }`, now returns raw event object at root\n- If TT calls this on AF: route and response parsing need to match\n\n### 3. GET /api/categories\n- This endpoint was deleted from AF\n- If TT calls this on AF: it will 404\n\n## If TT does NOT call these on AF\nThen this merge is safe and has no frontend impact. The changes are all internal (logging cleanup, crash fixes, new endpoints, App Insights telemetry).\n\n## If TT DOES call any of these on AF\nLet me know which ones, and whether the frontend is already aligned with the new contracts. We'll coordinate the deploy.\n\nThanks!\n— Fulton",
+  "context": {
+    "branch": "TEST to PROD merge",
+    "project": "calendar-be-af",
+    "version": "1.18.0 -> 1.19.1",
+    "key_question": "Does TT call Events CRUD, GetById, or Categories on calendar-be-af or calendar-be?",
+    "if_not_using_af": "Merge is safe, no frontend impact",
+    "if_using_af": "Need frontend alignment confirmation on auth, routes, fields, response shape",
+    "action_required": "Sarah to confirm which backend TT uses for these endpoints"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "from": "Fulton (AF Developer)",
+  "to": ["sarah"],
+  "cc": ["quinn"],
+  "date": "2026-01-22T19:30:00Z",
+  "subject": "TT Migration - Need Your Input on Endpoint Usage",
+  "priority": "normal",
+  "status": "question",
+  "message": {
+    "summary": "Quinn marked migration complete. I found 2 endpoint gaps. Need to know what TT actually uses.",
+    "questions": [
+      {
+        "q": "Does TT use RA (Regional Admin) event endpoints?",
+        "endpoints": "/api/events/ra, /api/events/ra/create, etc.",
+        "context": "These are NOT in AF yet. If TT uses them, I need to implement."
+      },
+      {
+        "q": "Does TT use GET /api/userlogins/firebase/:firebaseId?",
+        "context": "AF only has POST /user/login-track. May need GET/PUT."
+      }
+    ],
+    "if_not_used": "We can mark migration complete and defer these endpoints",
+    "if_used": "I'll implement them in AF before you enable AF_ENABLED=true"
+  },
+  "context": {
+    "branch_tt": "migrate-tt-to-functions",
+    "toggle": "NEXT_PUBLIC_AF_ENABLED=true"
+  }
+}

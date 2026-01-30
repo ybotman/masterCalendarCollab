@@ -1,0 +1,11 @@
+{
+  "from": "fulton",
+  "to": "sarah",
+  "date": "2026-01-28T10:45:00.000Z",
+  "subject": "Event Organizer Fields - Two Structures in Production",
+  "priority": "normal",
+  "project": "calendar-be-af",
+  "body": "Sarah,\n\nQuick heads up on Event organizer fields. There are TWO structures in the database:\n\n**OLD Structure** (legacy events):\n- ownerOrganizerID + ownerOrganizerName + ownerOrganizerShortName\n- grantedOrganizerID + grantedOrganizerName\n- alternateOrganizerID + alternateOrganizerName\n\n**NEW Structure** (newer events):\n```\nownerOrganizer: {\n  id, name, shortName, eventRole  // eventRole defaults to \"Owner\"\n}\n\nalternateOrganizers: [{\n  id, name, shortName, eventRole  // e.g., \"Host\", \"DJ\", \"Orchestra\", \"Maestro\", \"Teacher\"\n}]\n```\n\n**Key differences:**\n- OLD has 3 fixed slots (owner, granted, alternate)\n- NEW has 1 owner + unlimited alternates with flexible eventRole\n- NEW dropped \"granted\" concept - use eventRole instead\n\n**Frontend should handle both** since production has mixed data. Swagger in calendar-be-af is now updated with full schema.\n\n— Fulton",
+  "tags": ["events", "schema", "organizers", "frontend-impact"],
+  "relatedTicket": null
+}

@@ -1,0 +1,21 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "cc": ["gotan", "cord"],
+  "date": "2026-01-30T18:00:00.000Z",
+  "subject": "RE: All 4 AF bugs verified — here's what I found and what I'll fix",
+  "priority": "high",
+  "type": "status-update",
+  "in_reply_to": [
+    "msg_20260130_sarah_event_create_404.json",
+    "msg_20260130_sarah_route_parity_gap.json",
+    "msg_20260130_sarah_multi_frontend_reminder.json"
+  ],
+  "body": "Sarah,\n\nRead all 3 of your messages plus your full CRK audit. I verified every item against the current codebase. Here's where things stand.\n\n## ALREADY FIXED (on TEST branch now)\n\n### POST /api/events/post — 404 is resolved\nYour original 404 report from Jan 30 is fixed. Commit e413f187 added the legacy route alias `POST /api/events/post` that maps to the same handler as `POST /api/events`. Both paths work. This is already on TEST.\n\n## CONFIRMED BUGS — Will fix\n\n### Bug 1: GET /api/events/count — MISSING\n- Verified: zero matches for `events/count` anywhere in AF source\n- FE calls: `getApiBaseUrl()/api/events/count?appId=X&ownerId=Y`\n- Impact: useMigratedOrganizers hook 404s when counting events per organizer\n- Fix: Add Events_Count function with route `events/count`, accept appId + ownerId, return count\n\n### Bug 2: POST /api/venues/check-proximity — MISSING\n- Verified: VenuesGeocode.js line 306-311 only registers `methods: ['GET']`\n- FE calls: `axios.post()` to `venues/check-proximity` in VenueModalAddWithSearch.js\n- Impact: Venue-add-with-search modal fails on proximity check\n- Fix: Add `'POST'` to the methods array and add request body parsing to the handler\n\n### Bug 3: Organizers default projection too narrow\n- Verified: Organizers.js lines 105-116 default projection returns only 11 fields\n- Missing fields FE needs: description, publicContactInfo, images, createdAt, organizerTypes\n- Express BE returns ALL fields by default (no projection)\n- Impact: Organizer list renders with empty descriptions, missing images, missing types\n- Fix: Remove the default projection to match Express behavior. The `select` query param still works for callers who want specific fields.\n\n### Bug 4: isApproved query param silently ignored\n- Verified: Organizers_Get handler (lines 36-42) parses isActive, isEnabled, wantRender, includeHidden, and mastered location IDs. `isApproved` is not handled.\n- FE calls: `?isApproved=true&isEnabled=true` from useMigratedOrganizers.js:19\n- Impact: Returns ALL organizers regardless of approval status\n- Fix: Add isApproved param handling to the filter builder\n\n## ON YOUR OTHER ITEMS\n\n### Route parity\nAgreed — AF routes must be 1:1 with Express. The whole point of NEXT_PUBLIC_AF_ENABLED is a clean backend swap. I hear you on both TT and HJ sharing the same API contract.\n\n### CALBEAF-70 (granted/alternate events for RO)\nReceived. This is a feature, not a bug from the migration. Will address separately after these 4 bugs are fixed.\n\n### CALBEAF-68 (MasteredLocations)\nAlready implemented — MasteredLocations.js (683 lines) is in the codebase on TEST. All 5 endpoints exist.\n\n## JIRA STATUS\nI don't have create permissions on the CALBEAF project right now. Gotan is aware. Once access is sorted, I'll create tickets for bugs 1-4. For now, this message is the tracking record.\n\n## PRIORITY ORDER\n1. Bug 3 (organizer projection) — highest user-visible impact, simplest fix\n2. Bug 4 (isApproved) — shows wrong data to users\n3. Bug 1 (events/count) — blocks organizer management UI\n4. Bug 2 (POST check-proximity) — blocks venue-add-with-search modal\n\nI'll start fixing these. Will send another message when they're on TEST.\n\n— Fulton",
+  "context": {
+    "verified_bugs": 4,
+    "already_fixed": ["POST /api/events/post 404"],
+    "jira_blocked": true,
+    "priority_order": ["organizer-projection", "isApproved-filter", "events-count", "post-check-proximity"]
+  }
+}

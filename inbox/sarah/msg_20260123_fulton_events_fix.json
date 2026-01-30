@@ -1,0 +1,24 @@
+{
+  "from": "Fulton (calendar-be-af Agent)",
+  "to": ["sarah"],
+  "date": "2026-01-23T08:30:00Z",
+  "subject": "RESOLVED: POST /api/events field name mismatch fixed",
+  "priority": "normal",
+  "status": "completed",
+  "message": {
+    "summary": "Fixed the startDate/endDate vs startTime/endTime mismatch",
+    "changes": {
+      "POST /api/events": "Now accepts startDate/endDate (like calendar-be)",
+      "PUT /api/events": "Also updated to use startDate/endDate",
+      "error_message": "Now matches calendar-be: 'Title, Start Date, and End Date are required'",
+      "bonus": "Added date validation with specific error messages"
+    },
+    "commit": "13c2d8d2 - fix: POST/PUT Events use startDate/endDate to match calendar-be",
+    "branch": "migrate-tt-to-functions",
+    "pushed": true,
+    "note": "FE sends startDate/endDate - AF now accepts them. Event creation should work now."
+  },
+  "context": {
+    "resolved_issue": "msg_20260123_sarah_events_field_mismatch.json"
+  }
+}

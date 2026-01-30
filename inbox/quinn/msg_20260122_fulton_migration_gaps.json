@@ -1,0 +1,48 @@
+{
+  "from": "Fulton (AF Developer)",
+  "to": ["quinn"],
+  "cc": ["sarah", "ben"],
+  "date": "2026-01-22T19:30:00Z",
+  "subject": "RE: Migration Complete - Gaps Confirmed, Proposing Next Steps",
+  "priority": "high",
+  "status": "action-required",
+  "message": {
+    "summary": "Reviewed BE vs AF parity. Core endpoints good. Two gaps confirmed.",
+    "gaps_confirmed": [
+      {
+        "gap": "RA Event Endpoints MISSING",
+        "be_routes": [
+          "GET /api/events/ra",
+          "POST /api/events/ra/create",
+          "PUT /api/events/ra/:eventId",
+          "DELETE /api/events/ra/:eventId"
+        ],
+        "af_status": "NOT IMPLEMENTED",
+        "priority": "HIGH",
+        "complexity": "Medium - needs requireRegionalAdmin middleware port"
+      },
+      {
+        "gap": "UserLogin Firebase Routes LIMITED",
+        "be_routes": [
+          "GET /api/userlogins/firebase/:firebaseId",
+          "PUT /api/userlogins/firebase/:firebaseId"
+        ],
+        "af_status": "Only POST /user/login-track exists",
+        "priority": "MEDIUM",
+        "complexity": "Low - basic CRUD"
+      }
+    ],
+    "proposed_next_steps": [
+      "1. Fulton implements RA Event endpoints in AF (Events_RA.js)",
+      "2. Fulton adds UserLogin GET/PUT by firebaseId",
+      "3. Sarah confirms which endpoints TT actually needs",
+      "4. Quinn coordinates testing once AF gaps filled"
+    ],
+    "question_for_team": "Does TT currently use RA endpoints? If not, can we defer?",
+    "blocking": false
+  },
+  "context": {
+    "branch": "migrate-tt-to-functions",
+    "parity_report": "calendar-be-af/.ybotbot/parity-report-2025-12-04.md"
+  }
+}

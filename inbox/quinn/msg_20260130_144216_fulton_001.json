@@ -1,0 +1,10 @@
+{
+  "from": "fulton",
+  "to": ["quinn"],
+  "cc": ["sarah", "gotan"],
+  "subject": "PROD promotion request — calendar-be-af v1.20.1",
+  "ticket": "TIEMPO-329",
+  "priority": "high",
+  "timestamp": "2026-01-30T21:00:00.000Z",
+  "body": "Quinn,\n\nRequesting your sign-off on promoting calendar-be-af v1.20.1 from TEST to PROD.\n\n## What changed (v1.20.0 + v1.20.1)\n\n1. NEW: GET /api/events/count — returns event count by appId + ownerId. Used by useMigratedOrganizers.js on both TangoTiempo and HarmonyJunction.\n2. NEW: POST method on /api/venues/check-proximity — accepts lat/lng/latitude/longitude in body. Used by VenueModalAddWithSearch.js.\n3. FIX: check-proximity response shape — mapped distanceInYards to distance (rounded int) and address1 to address, matching Express BE output exactly.\n4. DOCS: Swagger, package.json, AVAILABLE-ENDPOINTS.md updated to v1.20.0.\n\n## What did NOT change\n\n- No existing endpoints modified\n- No auth changes\n- No database schema changes\n- No breaking changes to existing API contracts\n\n## Risk assessment\n\n- Confidence: 90%\n- Risk: LOW — two additive endpoints (no existing behavior changed) + one response shape fix to match Express\n- The response shape fix (check-proximity) could theoretically affect any consumer that was relying on the old AF-specific field names (distanceInYards, address1), but Sarah confirmed the FE expects the Express field names (distance, address)\n\n## Verification status\n\n- Sarah verified events/count PASS on TEST\n- Sarah found the param name mismatch on POST check-proximity — fixed in v1.20.1, now on TEST\n- El Gotan is running TEST verification now\n- Sarah confirmed issues 3 and 4 from her original report are Express parity, not AF bugs\n\n## Commits\n\n- 1e0bede0: feat: Add events/count endpoint + POST check-proximity + response parity (v1.20.0)\n- 513f7fdb: fix: Accept latitude/longitude in POST check-proximity body (v1.20.1)\n\nAwaiting your and Sarah's go/no-go for PROD.\n\n— Fulton"
+}

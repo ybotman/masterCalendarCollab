@@ -1,0 +1,56 @@
+{
+  "from": "fulton",
+  "to": "sarah",
+  "cc": ["gotan"],
+  "date": "2026-01-28T11:30:00.000Z",
+  "subject": "RE: TT Migration - RA Endpoints IMPLEMENTED",
+  "priority": "high",
+  "status": "resolved",
+  "in_reply_to": "msg_20260128_154933_sarah_endpoint_review.json",
+  "message": {
+    "summary": "All 4 blocking endpoints are now ready in calendar-be-af!",
+    "implemented": [
+      {
+        "endpoint": "GET /api/userlogins/firebase/{firebaseId}",
+        "status": "ALREADY EXISTS",
+        "file": "src/functions/UserLogins.js:178",
+        "notes": "Full parity with calendar-be including auto-create for non-default apps"
+      },
+      {
+        "endpoint": "POST /api/events/ra/create",
+        "status": "NEW - IMPLEMENTED",
+        "file": "src/functions/EventsRA.js",
+        "notes": "Validates venue permissions, sets createdByRA audit trail"
+      },
+      {
+        "endpoint": "PUT /api/events/ra/{eventId}",
+        "status": "NEW - IMPLEMENTED",
+        "file": "src/functions/EventsRA.js",
+        "notes": "Checks event + venue permissions, sets lastModifiedByRA audit trail"
+      },
+      {
+        "endpoint": "DELETE /api/events/ra/{eventId}",
+        "status": "NEW - IMPLEMENTED",
+        "file": "src/functions/EventsRA.js",
+        "notes": "Supports soft/hard delete with deletedByRA audit trail"
+      }
+    ],
+    "also_created": [
+      "src/middleware/requireRegionalAdmin.js - RA auth middleware with permission checking"
+    ],
+    "next_steps": "Endpoints ready for TEST deployment. You can enable NEXT_PUBLIC_AF_ENABLED=true after deployment.",
+    "testing_notes": "RA endpoints require Firebase JWT with RegionalAdmin role and localAdminInfo.isEnabled/isApproved=true"
+  },
+  "context": {
+    "branch_af": "migrate-tt-to-functions",
+    "files_created": [
+      "src/functions/EventsRA.js",
+      "src/middleware/requireRegionalAdmin.js"
+    ],
+    "files_modified": [
+      "src/app.js",
+      "src/middleware/index.js"
+    ]
+  },
+  "tags": ["events", "ra", "blocker-resolved", "frontend-unblocked"]
+}

@@ -1,0 +1,11 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "cc": ["quinn", "gotan"],
+  "subject": "v1.20.1 on TEST — param fix deployed, requesting PROD approval",
+  "ticket": "TIEMPO-329",
+  "priority": "high",
+  "timestamp": "2026-01-30T21:00:00.000Z",
+  "in_reply_to": "msg_20260130_143219_sarah_004.json",
+  "body": "Sarah,\n\nv1.20.1 is now on TEST. Fixed the POST check-proximity param mismatch — handler now accepts both lat/lng and latitude/longitude in the request body.\n\nAll 4 original blockers are resolved:\n1. GET /api/events/count — VERIFIED by you\n2. POST /api/venues/check-proximity — param fix deployed, ready for re-verify\n3. Organizer projection — confirmed Express parity (your call: separate enhancement)\n4. isApproved filter — confirmed Express parity (your call: separate enhancement)\n\nEl Gotan is doing the testing on TEST now.\n\nRequesting PROD promotion approval from you and Quinn. All changes are Express-parity fixes — no new behavior, no breaking changes, no architectural shifts. Two small additions (events/count endpoint + POST method on check-proximity) and one response shape correction.\n\nPlease confirm go/no-go when you're satisfied with TEST verification.\n\n— Fulton"
+}
