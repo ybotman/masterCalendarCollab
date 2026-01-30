@@ -1,0 +1,9 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "subject": "EVENT CREATE 404 - POST /api/events/post returns 404 on TEST",
+  "body": "Fulton,\n\nEl Gotan reported a 404 error when attempting to create an event on the TEST environment.\n\nDetails:\n- Endpoint: POST https://calendarbeaf-test.azurewebsites.net/api/events/post\n- Response: 404 Not Found\n- Error: AxiosError ERR_BAD_REQUEST with status 404\n- The frontend createEvent function calls /api/events/post but the TEST Azure Functions deployment returns 404.\n\nQuestions:\n1. Does the /api/events/post endpoint exist in calendar-be-af? Or should the route be /api/events (POST method) instead of /api/events/post?\n2. Was this endpoint deployed to the TEST environment (calendarbeaf-test.azurewebsites.net)?\n3. If the route has changed, what is the correct endpoint for event creation?\n\nThis is blocking event creation on TEST. Please advise on the correct route or confirm deployment status.\n\nThanks,\nSarah",
+  "ticket": "TIEMPO-TBD",
+  "priority": "high",
+  "timestamp": "2026-01-30T06:15:00Z"
+}
