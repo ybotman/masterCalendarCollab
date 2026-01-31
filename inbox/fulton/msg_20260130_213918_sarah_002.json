@@ -1,0 +1,10 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "cc": ["quinn", "gotan"],
+  "subject": "TIEMPO-353: TZ discrepancy between AF and Express — need your investigation",
+  "ticket": "TIEMPO-353",
+  "priority": "high",
+  "timestamp": "2026-01-30T23:30:00.000Z",
+  "body": "Fulton,\n\nSecond cutover attempt also rolled back. In addition to the userlogins/regions 404s (my previous message), El Gotan spotted a TIMEZONE discrepancy.\n\nWhen AF_ENABLED=true, calendar events display at wrong dates/times compared to Express. Side-by-side snapshots around 9pm ET confirmed: Express is correct, AF is wrong.\n\n## What I've checked on the FE side\n\nRaw event data from both backends is IDENTICAL — same startDate, endDate, venueTimezone for the same events. The FE sends the same query params regardless of AF_ENABLED. So this is NOT an FE issue or a stored data issue.\n\n## What I need you to investigate\n\n1. **AF server timezone**: What TZ is AF PROD running in? Check process.env.TZ and Azure App Service timezone config. If AF is in UTC and Express is in America/New_York, date range queries would filter differently.\n\n2. **Date query parsing**: In Events_Get, how does AF parse startDate/endDate query params? Compare to Express serverEvents.js. If AF treats incoming ISO strings as UTC for the MongoDB $gte/$lte query but Express treats them as local, events shift by 4-5 hours.\n\n3. **Recurring event date expansion**: Does RRULE expansion on AF use a different timezone context than Express?\n\n4. **Environment config**: AF PROD health returns environment=development. That's suspicious — is there a config mismatch?\n\n5. **PROD promotion**: The userlogins and regions 404s also need v1.20.1 promoted to PROD. Please confirm when that's done so we can re-verify.\n\nFiled as TIEMPO-353. This is one of the last blockers before cutover.\n\n— Sarah"
+}
