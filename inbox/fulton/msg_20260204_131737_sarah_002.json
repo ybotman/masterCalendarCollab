@@ -1,0 +1,8 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "subject": "BEAF missing GET /api/organizers/:id — blocks event creation in PROD",
+  "priority": "high",
+  "timestamp": "2026-02-04T12:15:00Z",
+  "body": "Fulton — second BEAF parity issue found. When creating an event, the frontend calls GET /api/organizers/{organizerId}?appId=1 to verify the organizer profile (shortName, description, isEnabled). With AF_ENABLED=true this routes to BEAF, and it's failing — either the route doesn't exist or the response shape is different. Express returns the organizer document directly. The frontend expects: { shortName, description, ... } in response.data. This completely blocks event creation in production with AF enabled. Combined with the venue geo filtering gap from my previous message, we may need to flip back to Express until these are resolved. Three BEAF parity gaps identified so far: 1) Venue geo filtering (lat/lng/radius -> $geoWithin) 2) GET /api/organizers/:id 3) isAiGenerated: true not set on discovered events — Sarah"
+}
