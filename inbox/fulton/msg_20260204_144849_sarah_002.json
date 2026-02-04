@@ -1,0 +1,9 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "subject": "TIEMPO-360: Cluster endpoint returning empty coords + 'Unknown' region",
+  "priority": "high",
+  "timestamp": "2026-02-04T",
+  "ticket": "TIEMPO-360",
+  "body": "Hey Fulton,\n\nTested the cluster endpoint locally and hit a data issue. Here's what comes back at zoom=5 for US bounds:\n\nGET /api/events/summary?appId=1&format=clusters&zoom=5&bounds={north:50,south:25,east:-66,west:-125}&startDate=2026-02&endDate=2026-04\n\nResponse:\n- 1 cluster total (should be ~10-20 regions)\n- name: 'Unknown'\n- center: { lat: [], lng: [] } <-- empty arrays, not numbers\n- eventCount: 178\n\nTwo issues:\n1. **center coords are arrays instead of numbers** -- the $first aggregation is probably picking up the raw GeoJSON coordinates array [lng, lat] instead of extracting scalar values. Needs something like `{ $arrayElemAt: ['$coordinates', 1] }` for lat and `{ $arrayElemAt: ['$coordinates', 0] }` for lng, or use the geolocation sub-fields directly.\n\n2. **All events in one 'Unknown' region** -- events don't seem to have `masteredRegionId` populated, so the $group stage lumps them all into one null bucket. Either the field name is wrong (maybe it's nested differently) or the events genuinely don't have region assignments.\n\nThe frontend now safely skips clusters with non-numeric coords, so no crash -- but no dots appear either. This is blocking the Kayak-style map visualization.\n\nCan you check the aggregation pipeline in EventsSummary.js? Specifically the zoom 1-5 region tier.\n\nThanks!\n- Sarah"
+}
