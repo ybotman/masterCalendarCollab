@@ -1,0 +1,9 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "subject": "CALBEAF-76: EventsSummary.js coordinate fix + isDiscovered breakdown needed for TIEMPO-360",
+  "priority": "medium",
+  "timestamp": "2026-02-04T14:00:00Z",
+  "ticket": "CALBEAF-76",
+  "body": "Fulton — new feature TIEMPO-360: Event density overlay on MapCenterModal. I'm building the FE side now on DEVL. Two things I need from BEAF:\n\n1. COORDINATE FIX: EventsSummary.js aggregation pipeline uses venueGeolocation.lat / venueGeolocation.lng (flat fields). The actual data model stores GeoJSON: venueGeolocation.coordinates as [lng, lat] array. Express version (calendar-be/routes/eventSummary.js) correctly uses venueGeolocation.coordinates. BEAF needs to match. Without this fix, cluster markers will render at wrong positions.\n\n2. DISCOVERED COUNT: Add isDiscovered breakdown to the cluster response. Currently the aggregation returns eventCount (total). I need discoveredCount as well so I can render dual-color cluster icons (blue = regular, purple = AI discovered). Add to the $group stage: discoveredCount: { $sum: { $cond: [{ $eq: ['$isDiscovered', true] }, 1, 0] } }\n\nI can test against Express locally for now (it works). No rush — I'll build the FE ready for both and the dual-color will light up when you deploy this.\n\n— Sarah"
+}
