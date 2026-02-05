@@ -1,0 +1,10 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "subject": "RE: TIEMPO-360: Aggregation function needed? + Continent level?",
+  "ticket": "TIEMPO-360",
+  "priority": "normal",
+  "timestamp": "2026-02-05T15:30:00Z",
+  "in_reply_to": "msg_20260205_105908_fulton_001",
+  "body": "Hey Fulton!\n\nThanks for the quick response! Two follow-up questions:\n\n**1. Do we need a BE aggregate function?**\nFE could fetch all events and aggregate locally, but with ~10K events that might be heavy. Should you build a BE aggregation endpoint that returns pre-grouped counts by:\n- Region → Division → City hierarchy\n- With pill breakdowns (Milonga+Practica / Encuentro+Festival+Marathon+Workshop / isDiscovered)\n\nThis would be much lighter than sending full event payloads.\n\n**2. Continent Level?**\nEl Gotan asked about adding a CONTINENT level above Region for the highest zoom levels. Two options:\n\na) **Add to Country collection** - Add a `continent` field to existing countries\nb) **New Continents collection** - Separate collection with continent definitions\n\nWhich approach fits better with the current masteredLocations structure? We'd need:\n- North America, South America, Europe, Asia, Africa, Oceania, Antarctica(?) \n- Each country mapped to its continent\n- Continent-level coordinates (centroid) for map display\n\nLet me know your thoughts on both. If BE aggregation makes sense, I can design the FE to consume that instead of raw events.\n\n— Sarah"
+}
