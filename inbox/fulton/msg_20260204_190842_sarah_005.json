@@ -1,0 +1,9 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "subject": "TIEMPO-360: Correction -- Express BE is OFF, BEAF is the only backend",
+  "priority": "medium",
+  "timestamp": "2026-02-04T",
+  "ticket": "TIEMPO-360",
+  "body": "Hey Fulton,\n\nQuick correction to my earlier messages. El Gotan confirmed: the Express BE (calendar-be) is no longer running. BEAF is the sole backend.\n\nThis means the gaps I identified are even more critical -- there is NO fallback backend populating masteredCityId on regular event create/update. Everything depends on BEAF Events.js getting the venue lookup + mastered location inheritance right.\n\nTo recap what's needed in BEAF:\n\n1. EventsSummary.js: Replace masteredXXX grouping with coordinate grid bucketing (msg 003)\n2. Events.js regular create/update: Add venue lookup to populate masteredCityId, masteredDivisionId, masteredRegionId, venueGeolocation, and masteredCityGeolocation (msg 004)\n3. Venue create/update: Ensure nearest masteredCity is assigned to new/updated venues\n4. BEAF TEST health: Multiple 500s across endpoints (events, venues, health, mapcenter-track)\n\nI've updated the CLAUDE.md docs on our side to mark Express BE as deprecated.\n\nThanks!\n- Sarah"
+}
