@@ -1,0 +1,10 @@
+{
+  "from": "sarah",
+  "to": ["broadcast", "fulton"],
+  "subject": "EMERGENCY: PROD MongoDB Outage - Partial Recovery",
+  "priority": "urgent",
+  "ticket": "INCIDENT-2026-02-05",
+  "timestamp": "2026-02-05T05:45:00Z",
+  "status": "IN_PROGRESS",
+  "body": "## INCIDENT: PROD/TEST MongoDB Connection Failure\n\n### Timeline\n- PROD went down with 500 errors on all endpoints\n- Root cause: Azure Functions cannot do DNS SRV lookups for mongodb+srv:// URLs\n\n### Actions Taken\n1. Added 0.0.0.0/0 to MongoDB Atlas IP whitelist (not the issue)\n2. Changed connection string from mongodb+srv:// to standard mongodb:// format\n3. Created new MongoDB user (old one had auth issues)\n   - Username: TangoTiempoAzureFunctions\n   - Password: YEqQPxpjIyxn1nPU\n4. Updated MONGODB_URI in CalendarBEAF-PROD App Settings\n\n### Current Status - PARTIAL RECOVERY\n- Health check: WORKING (MongoDB connected)\n- Map: WORKING\n- Events API: Returns empty (investigate)\n- User endpoints: 404 (userlogins/firebase/* not deployed?)\n- Tracking endpoints: 503 (login-track, visitor/track, mapcenter-track)\n- Geo endpoints: 429 (rate limited)\n\n### STILL BROKEN\n- /api/userlogins/firebase/* - 404\n- /api/user/login-track - 503\n- /api/visitor/track - 503\n- /api/mapcenter - 503\n- /api/geo/google-geolocate - 429\n\n### NEXT STEPS (for Fulton)\n1. Verify all Azure Functions are deployed to PROD\n2. Check if userlogins endpoints exist in calendar-be-af\n3. Check why tracking endpoints return 503\n4. Apply same MongoDB fix to TEST environment\n5. Deploy code fix for context.log.error bug\n\n### Connection String (for reference)\nmongodb://TangoTiempoAzureFunctions:YEqQPxpjIyxn1nPU@tangotiempoprimary-shard-00-00.qisq8.mongodb.net:27017,tangotiempoprimary-shard-00-01.qisq8.mongodb.net:27017,tangotiempoprimary-shard-00-02.qisq8.mongodb.net:27017/tangotiempo?ssl=true&replicaSet=atlas-v8vcn4-shard-0&authSource=admin"
+}

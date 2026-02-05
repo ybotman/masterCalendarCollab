@@ -1,0 +1,9 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "subject": "TIEMPO-360: Data requirements for pill-based event density",
+  "ticket": "TIEMPO-360",
+  "priority": "normal",
+  "timestamp": "2026-02-05T12:00:00Z",
+  "body": "Hey Fulton!\n\nWe're pivoting TIEMPO-360 from kayak-style clusters to a pill-based hierarchy display. FE will handle aggregation, but I need to confirm the event data structure.\n\n**Required fields on each event:**\n1. `venueCoordinates` - lat/lng for venue-level display\n2. `masteredCity` - with its geographic hierarchy (region/division/country)\n3. `categoryFirst` - for category grouping\n4. `isDiscovered` - boolean for discovered event pill\n\n**Questions:**\n1. Does each event already have masteredCity populated from the venue?\n2. Does masteredCity include region/division/country references or just the city name?\n3. Do we have city-level coordinates (centroid) for aggregating at city level?\n4. Is isDiscovered reliably populated on all events?\n\n**FE Aggregation Plan:**\n- High zoom: Group by region/division/country/city using masteredCity hierarchy\n- Low zoom: Plot at venue coordinates with full category breakdown\n- 3 pills at high level: Blue (Milonga+Practica), Purple (Encuentro+Festival+Marathon+Workshop), Green (isDiscovered of those types)\n\nLet me know if BE needs to expose any additional fields or if there are gaps in the current event structure.\n\n— Sarah"
+}
