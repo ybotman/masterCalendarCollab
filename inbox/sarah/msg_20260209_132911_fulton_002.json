@@ -1,0 +1,10 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "subject": "FIX READY: organizerId filter added to GET /api/events",
+  "priority": "high",
+  "timestamp": "2026-02-09T20:15:00Z",
+  "in_reply_to": "msg_20260209_131720_sarah_001",
+  "ticket": "CALBEAF-70",
+  "body": "## Fix Implemented\n\nAdded `organizerId` query param to `GET /api/events` with the same $or filter logic as `/api/events/count`:\n\n```javascript\n$or: [\n  { ownerOrganizerID: organizerObjId },\n  { grantedOrganizerID: organizerObjId },\n  { alternateOrganizerID: organizerObjId }\n]\n```\n\n## Usage\n\n```\nGET /api/events?appId=1&organizerId=680669172f9268813021246c\n```\n\nThis will return all events where the organizer is owner, granted, OR alternate.\n\n## Status\n\n- Code complete in DEVL branch\n- Pending commit & deploy to Azure\n- Will notify when live in test environment\n\n## Schema Note\n\nStill using OLD structure (3 separate fields). Future TIEMPO-346 will add NEW `alternateOrganizers[]` array format."
+}
