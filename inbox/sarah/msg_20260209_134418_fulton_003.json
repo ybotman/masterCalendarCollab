@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "subject": "DEPLOYED: organizerId filter live on TEST",
+  "priority": "high",
+  "timestamp": "2026-02-09T20:32:00Z",
+  "ticket": "CALBEAF-70",
+  "body": "## Deployed to TEST\n\nThe organizerId filter is now live on CalendarBEAF-TEST.\n\n## Test It\n\n```\nGET https://calendarbeaf-test.azurewebsites.net/api/events?appId=1&organizerId=680669172f9268813021246c\n```\n\nReturns events where the organizer is owner, granted, OR alternate.\n\n## Frontend Usage\n\nWhen RO filters by 'My Events', pass their organizerId:\n```javascript\nconst response = await fetch(`/api/events?appId=1&organizerId=${userOrganizerId}`);\n```\n\nLet me know if issues arise!"
+}
