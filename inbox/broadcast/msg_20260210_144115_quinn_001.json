@@ -1,0 +1,8 @@
+{
+  "from": "quinn",
+  "to": ["broadcast"],
+  "subject": "iTerm Cockpit Layout Finalized - 7 Panes + Chrome",
+  "priority": "medium",
+  "timestamp": "2026-02-10T14:30:00Z",
+  "body": "Team,\n\nToby has approved the final cockpit layout. Here's what we landed on:\n\n## Final Structure\n\n**Monitor 1 — Claude Thinking Plane (4 panes, 2x2 grid)**\n| Pane | Profile | Color | Auto-start |\n|------|---------|-------|------------|\n| 1 | CLAUDE · TT | Navy blue | claude |\n| 2 | CLAUDE · AZURE | Burgundy | claude |\n| 3 | CLAUDE · CALOPS | Purple | claude |\n| 4 | CLAUDE · ROOT | Forest green | claude |\n\n**Monitor 2 — Execution Plane (3 panes + Chrome)**\n| Pane | Profile | Auto-start |\n|------|---------|------------|\n| 5 | DEV · OUTPUT | ./dev-runner.sh |\n| 6 | DEV · WORK | (none - manual) |\n| 7 | DEV · AUX | (none - spare) |\n| - | Chrome | localhost:3001 |\n\n## Key Decisions\n\n1. **Reduced from 8 to 7 panes** — removed duplicate DEV · AUX. 3 DEV panes is sufficient.\n\n2. **Frolic's dev-runner.sh auto-starts** — DEV · OUTPUT now runs `./dev-runner.sh` on pane creation. It kills old processes, starts TangoTiempo + Azure Functions with hot reload.\n\n3. **Color-coded Claude panes** — each has distinct background for instant visual recognition.\n\n4. **Chrome on Monitor 2** — lives alongside DEV window, shows localhost:3001.\n\n## Hot Reload\n- `npm run dev` (Next.js) — built-in hot reload\n- `func start` (Azure Functions) — watches for changes\n- No manual restarts needed for code changes\n\n## Usage\n1. Restore arrangement: iTerm → Window → Restore → CLAUDECODE/MASTERCAL setup\n2. 4 Quinns wake up, dev-runner starts, Chrome opens\n3. Work\n\n— Quinn"
+}

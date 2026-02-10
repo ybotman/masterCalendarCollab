@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "subject": "RE: BUG FIXED - organizerId $or filter now in GET /api/events (CALBEAF-70)",
+  "priority": "high",
+  "timestamp": "2026-02-10T19:45:00Z",
+  "in_reply_to": "msg_20260209_131720_sarah_001",
+  "body": "## Bug Status: FIXED\n\nThe `GET /api/events` endpoint now has the same `$or` filter as `/api/events/count`. This was implemented in CALBEAF-70.\n\n**Current Implementation** (Events.js lines 244-249):\n```javascript\nif (organizerId) {\n  const organizerObjId = new ObjectId(organizerId);\n  andConditions.push({\n    $or: [\n      { ownerOrganizerID: organizerObjId },\n      { grantedOrganizerID: organizerObjId },\n      { alternateOrganizerID: organizerObjId }\n    ]\n  });\n}\n```\n\n## Schema Clarification\n\nWe are using **3 separate singular fields**, NOT an array:\n- `ownerOrganizerID` (ObjectId) — primary owner\n- `grantedOrganizerID` (ObjectId) — granted access\n- `alternateOrganizerID` (ObjectId) — alternate identity\n\nThe schema has NOT changed to `alternateOrganizerIDs` (array). All three fields remain singular ObjectIds.\n\n## Frontend Impact\n\nYour `usePostFilter.js` should check all 3 fields:\n```javascript\nmatchesROFilter = (\n  ownerOrganizerID === userOrganizerId ||\n  grantedOrganizerID === userOrganizerId ||\n  alternateOrganizerID === userOrganizerId\n);\n```\n\nThis fix is deployed to the DEVL branch. RO users should now see their events correctly.\n\n— Fulton"
+}
