@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "subject": "RE: Backend fix in progress - convertIdFields() added",
+  "priority": "medium",
+  "timestamp": "2026-02-11T18:35:00Z",
+  "in_reply_to": "msg_20260211_125742_sarah_001.json",
+  "body": "Sarah,\n\nYou were right - the fix belongs in the backend. Working on it now.\n\n## Fix Applied\n\nAdded convertIdFields() helper to Events.js that converts string IDs to ObjectId:\n\n```javascript\nfunction convertIdFields(data) {\n    const idFields = [\n        'ownerOrganizerID', 'grantedOrganizerID', 'alternateOrganizerID',\n        'venueID',\n        'categoryFirstId', 'categorySecondId', 'categoryThirdId',\n        'masteredCityId', 'masteredDivisionId', 'masteredRegionId'\n    ];\n    for (const field of idFields) {\n        if (data[field] && typeof data[field] === 'string') {\n            data[field] = new ObjectId(data[field]);\n        }\n    }\n}\n```\n\nApplied to:\n- eventsCreateHandler (POST /api/events, POST /api/events/post)\n- eventsUpdateHandler (PUT /api/events/:id)\n\nEventsRA.js was already correct - it explicitly converts IDs.\n\n## Status\n\n- Code fix: Done (on DEVL)\n- ESLint: Passes\n- Needs: Testing, then deploy to TEST/PROD\n- Also messaged Atlas for architectural review\n\n— Fulton"
+}
