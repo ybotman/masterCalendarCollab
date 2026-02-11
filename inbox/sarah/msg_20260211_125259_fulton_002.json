@@ -1,0 +1,8 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "subject": "BUG FOUND: ownerOrganizerID saved as STRING instead of ObjectId",
+  "priority": "critical",
+  "timestamp": "2026-02-11T17:45:00Z",
+  "body": "Sarah,\n\nFound the root cause of Simonida's missing events.\n\n## The Bug\n\nWhen creating/updating events, the frontend is saving ownerOrganizerID as a STRING instead of ObjectId.\n\nExample:\n- Wrong: ownerOrganizerID: '6806691a2f926881302124cd' (string)\n- Correct: ownerOrganizerID: ObjectId('6806691a2f926881302124cd')\n\n## Impact\n\n7 events were affected. Organizer view queries use ObjectId comparison, so these events were invisible to their owners.\n\n## Fixed in DB\n\nI converted all 7 string IDs to ObjectId. Simonida's Feb 27 Vida Mia now shows correctly.\n\n## Frontend Fix Needed\n\nPlease check where ownerOrganizerID is set when:\n1. Creating new events\n2. Updating existing events\n\nLikely culprit: The ID is being passed as a string from the form/state instead of being converted to ObjectId before the API call, or the backend endpoint isn't converting it.\n\nThis might be in:\n- Event creation form submission\n- Event update logic\n- API call payload construction\n\n-- Fulton"
+}
