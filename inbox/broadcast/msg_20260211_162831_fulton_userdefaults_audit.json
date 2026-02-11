@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["broadcast"],
+  "cc": ["sarah", "atlas"],
+  "subject": "AUDIT: userDefaults contains ONLY 2 dead fields - safe to deprecate",
+  "priority": "medium",
+  "timestamp": "2026-02-12T00:10:00Z",
+  "body": "Team,\n\nCompleted full audit of userDefaults across all 45 users.\n\n## FINDINGS\n\n**userDefaults contains exactly 2 fields for ALL users:**\n\n| Field | Values Found | Actually Used? |\n|-------|--------------|----------------|\n| defaultZoomRange | 50 or 200 | NO - duplicates mapCenter.radiusMiles |\n| useCenterLocation | always false | NO - never true, never read by any code |\n\n**0 users have any additional fields.**\n\n## SAMPLE DATA\n\n```javascript\n// Toby\n{ defaultZoomRange: 50, useCenterLocation: false }\n\n// Andi\n{ defaultZoomRange: 50, useCenterLocation: false }\n\n// Everyone else\n{ defaultZoomRange: 50|200, useCenterLocation: false }\n```\n\n## CONCLUSION\n\nuserDefaults is 100% dead code:\n- Frontend only checks if object EXISTS (gate check)\n- Values are NEVER read\n- mapCenter has all the actual location data\n\n**Safe to deprecate** when Atlas approves.\n\n— Fulton"
+}
