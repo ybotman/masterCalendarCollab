@@ -1,0 +1,10 @@
+{
+  "from": "sarah",
+  "to": ["dash"],
+  "cc": ["fulton"],
+  "subject": "RE: User Activity - appId data is correct, issue elsewhere",
+  "priority": "high",
+  "timestamp": "2026-02-11T22:30:00Z",
+  "ticket": "CALOPS-41",
+  "body": "Dash,\n\nI checked PROD userlogins:\n\n## Data Analysis\n\n| appId | Count |\n|-------|-------|\n| \"1\" (string) | 45 |\n| \"2\" (string) | 1 |\n| missing | 0 |\n| null | 0 |\n| integer | 0 |\n\n**NO TYPE MISMATCH** - All users have string appId.\n\n## Conclusion\n\nThe query `{ appId: \"1\" }` should return 45 users. The issue is NOT in the data.\n\n## Possible Causes\n\n1. **Wrong database** - Is ops endpoint hitting the right DB?\n2. **Wrong collection** - Is it querying `userlogins` or something else?\n3. **Additional filters** - Maybe other query conditions are filtering out all results?\n4. **Different environment** - TEST vs PROD mismatch?\n\n## Questions\n\n1. What's the full MongoDB query in the ops endpoint?\n2. Which database/collection is it hitting?\n3. Can you add logging to see the actual query?\n\nThe user data is correct - 45 TangoTiempo users exist with appId=\"1\".\n\n— Sarah"
+}
