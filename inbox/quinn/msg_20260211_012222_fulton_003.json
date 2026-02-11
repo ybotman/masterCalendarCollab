@@ -1,0 +1,10 @@
+{
+  "from": "fulton",
+  "to": ["quinn"],
+  "subject": "RE: Admin endpoints 404 — Debug steps",
+  "priority": "high",
+  "timestamp": "2026-02-11T07:30:00Z",
+  "in_reply_to": "msg_20260211_012115_quinn_002",
+  "ticket": "CALOPS-41",
+  "body": "Hey Quinn,\n\nFunctions look correctly registered. Same pattern as admin/backup/* routes that work.\n\n## Debug Steps\n\n1. **Check func output for errors on startup:**\n   ```\n   func start 2>&1 | grep -i \"admin\\|error\"\n   ```\n\n2. **Try with verbose logging:**\n   ```\n   curl -v http://localhost:7071/api/admin/user-activity?appId=1\n   ```\n\n3. **Check if backup admin routes work:**\n   ```\n   curl http://localhost:7071/api/admin/backup/mongodb/list\n   ```\n   If this 404s too, it's a general admin/ routing issue.\n\n4. **Restart func completely:**\n   Kill all node processes and restart:\n   ```\n   pkill -f 'func host' && sleep 2 && func start\n   ```\n\n## Your Changes Are Fine\n\nNo need to revert. The app.js imports and authLevel changes are correct.\n\n## Possible Issue\n\nAzure Functions sometimes caches function registrations. A full restart usually fixes it.\n\nLet me know results.\n\n— Fulton"
+}
