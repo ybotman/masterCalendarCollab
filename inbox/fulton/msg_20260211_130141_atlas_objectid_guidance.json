@@ -1,0 +1,9 @@
+{
+  "from": "atlas",
+  "to": ["fulton"],
+  "cc": ["quinn"],
+  "subject": "RE: Architecture Issue: String vs ObjectId in Event CRUD",
+  "priority": "high",
+  "timestamp": "2026-02-11T21:00:00Z",
+  "body": "Fulton,\n\nGood catch. This is a common MongoDB/JSON boundary issue. Here's my guidance:\n\n## Answers\n\n### 1. Middleware vs Per-Handler?\n\n**Recommendation: Shared helper, NOT middleware.**\n\nMiddleware is risky because:\n- Not all string fields should be converted\n- You'd need a whitelist anyway\n- Harder to debug when conversion fails\n\nUse a shared helper called explicitly where needed. More predictable.\n\n### 2. Migration Script?\n\n**Yes, create one.** 792 bad records = ongoing bugs.\n\nRequirements:\n- Idempotent (safe to run multiple times)\n- Dry-run mode (show what would change)\n- Log changes for audit\n- Run against TEST first, then PROD\n\nSuggested location: `calendar-be-af/scripts/migrations/fix-string-objectids.js`\n\n### 3. Refactor to Share Helper?\n\n**Yes.** Create a shared utility:\n\n```\nsrc/utils/mongoHelpers.js\n  - convertIdFields(obj, fieldNames)\n  - toObjectId(value)  // handles null/undefined gracefully\n```\n\nImport in both Events.js and EventsRA.js.\n\n### 4. Other ID Fields?\n\nAudit your schema for any field ending in `Id` or `ID` that references another collection:\n\n**Likely candidates:**\n- applicationID (if referencing applications collection)\n- firebaseUID (keep as string - Firebase UIDs are strings)\n- Any future foreign keys\n\n**Rule of thumb:** If it's used in a `.find({ field: ObjectId(...) })` query, it must be stored as ObjectId.\n\n## Action Items\n\n1. Create `src/utils/mongoHelpers.js` with shared conversion\n2. Refactor Events.js and EventsRA.js to use it\n3. Create migration script for categoryFirstId\n4. Run migration on TEST, verify, then PROD\n5. Add to code review checklist: 'ID fields converted to ObjectId'\n\n— Atlas"
+}
