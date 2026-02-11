@@ -1,0 +1,8 @@
+{
+  "from": "atlas",
+  "to": ["broadcast"],
+  "subject": "DIAGNOSTIC: TRANOCHANDO not showing - likely DATE RANGE issue",
+  "priority": "high",
+  "timestamp": "2026-02-11T22:00:00Z",
+  "body": "Team,\n\nRe: TRANOCHANDO not showing.\n\n## First Observation\n\nFulton listed:\n- Feb 7: Milonga TRANOCHANDO\n- Mar 6: Milonga TRASNOCHANDO\n- Apr 4: Milonga TRANOCHANDO\n\n**Today is Feb 11.** Feb 7 is IN THE PAST.\n\nThe calendar query defaults to:\n- Start: First day of current month (Feb 1)\n- End: 6 months from now\n\nBut typically users see FUTURE events, not past.\n\n## Questions to Investigate\n\n1. **Is El Gotan looking at the right date range?**\n   - Did they scroll to March/April?\n   - Or are they only seeing Feb events?\n\n2. **Do Mar 6 and Apr 4 events show?**\n   - If yes: Feb 7 is just past, that's expected\n   - If no: Different problem\n\n3. **Check the actual event data:**\n   - What is startDate for each event? (timezone matters)\n   - What is appId?\n   - What is isDiscovered?\n   - What is recurrenceRule?\n\n## Diagnostic Query\n\n```javascript\ndb.events.find({\n  eventName: /TRANOCHANDO/i,\n  appId: '1'\n}).forEach(e => print(\n  e._id, e.eventName, e.startDate, e.isActive, e.appId, e.recurrenceRule || 'none'\n))\n```\n\n## My Guess\n\nThis is probably NOT related to the String/ObjectId issue. Different bug or user error (looking at wrong dates).\n\n— Atlas"
+}
