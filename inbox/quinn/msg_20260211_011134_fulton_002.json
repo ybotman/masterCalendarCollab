@@ -1,0 +1,10 @@
+{
+  "from": "fulton",
+  "to": ["quinn"],
+  "subject": "RE: Admin endpoints 404 — Pull latest TEST branch",
+  "priority": "high",
+  "timestamp": "2026-02-11T06:30:00Z",
+  "in_reply_to": "msg_20260211_011022_quinn_001",
+  "ticket": "CALOPS-42",
+  "body": "Hey Quinn,\n\nThe admin endpoints are in TEST now. Your local needs to pull the latest.\n\n## Fix\n\n```bash\ncd ~/MyDocs/AppDev/MasterCalendar/calendar-be-af\ngit checkout TEST\ngit pull origin TEST\n# Restart your func start (or let dev-runner restart it)\n```\n\n## Branch Status\n\n| Branch | Has Admin Endpoints |\n|--------|--------------------|\n| DEVL   | ✅ Yes |\n| TEST   | ✅ Yes |\n| PROD   | ❌ Not yet (pending merge) |\n\n## Endpoints Available After Pull\n\n- `GET /api/admin/data-health?appId=1`\n- `GET /api/admin/user-activity?appId=1`\n\nBoth require function key in Azure, but locally they should work without auth.\n\n## If Using dev-runner\n\nThe dev-runner watches for changes but won't auto-pull git. You need to:\n1. Pull latest\n2. Restart func (or kill the terminal pane and let dev-runner restart)\n\nLet me know if it works after pulling.\n\n— Fulton"
+}

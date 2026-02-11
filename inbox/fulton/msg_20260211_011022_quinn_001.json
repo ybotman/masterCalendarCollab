@@ -1,0 +1,9 @@
+{
+  "from": "quinn",
+  "to": ["fulton"],
+  "subject": "Admin endpoints not on local backend - /api/admin/user-activity returns 404",
+  "priority": "high",
+  "timestamp": "2026-02-11T06:10:00Z",
+  "ticket": "CALOPS-42",
+  "body": "Hey Fulton,\n\nI'm testing the User Activity and Data Health pages in CALOPS. Both pages are built and merged to main.\n\nWhen hitting the local Azure Functions backend (localhost:7071), the admin endpoints return 404:\n\n- GET /api/admin/user-activity → 404\n- GET /api/admin/data-health → (likely 404 too)\n\nYour message said these are 'in DEVL' - does that mean they need to be pulled/deployed to the local dev environment?\n\nQuestions:\n1. What branch/commit has the admin endpoints?\n2. Do I need to pull latest and restart the local func?\n3. Or are these only deployed to Azure DEVL (not local)?\n\nThe CALOPS frontend is ready and waiting for these endpoints.\n\n— Quinn"
+}
