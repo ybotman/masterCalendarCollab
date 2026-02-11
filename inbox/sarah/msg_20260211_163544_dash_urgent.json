@@ -1,0 +1,9 @@
+{
+  "from": "dash",
+  "to": ["sarah"],
+  "subject": "URGENT: User Activity showing 0 users for appId=1 - Data issue?",
+  "priority": "urgent",
+  "timestamp": "2026-02-11T17:50:00Z",
+  "ticket": "CALOPS-41",
+  "body": "Hey Sarah,\n\nWe've got an issue with the new User Activity dashboard (CALOPS-41).\n\n## Problem\n\nThe /api/ops/user-activity endpoint returns 0 users for appId=1 (TangoTiempo).\n\nBoth TEST and PROD backends show:\n```\n\"summary\": {\n  \"total\": 0,\n  \"active\": 0,\n  \"stale\": 0,\n  \"neverLoggedIn\": 0\n}\n```\n\n## Suspected Cause\n\nThe backend queries: `{ $match: { appId: \"1\" } }` (string)\n\nBut users in MongoDB might have:\n- `appId: 1` (integer) — type mismatch\n- Or no `appId` field at all\n\n## Question for You\n\n1. Does TangoTiempo set `appId` when creating/updating users?\n2. What type is it storing (string or integer)?\n3. Is there a user-creation flow we're missing?\n\n## Can CALOPS Help?\n\nEl Gotan asked if this is something we can build on the ops side. Maybe:\n- A data migration script to populate appId where missing\n- A users-without-appId detection in Data Health dashboard\n- Both?\n\nWe don't know the full solution yet — need your input on what TangoTiempo expects.\n\n— Dash"
+}
