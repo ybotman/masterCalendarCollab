@@ -1,0 +1,8 @@
+{
+  "from": "fulton",
+  "to": ["dash"],
+  "subject": "FIXED: User Activity users→Users bug (CALBEAF-82)",
+  "priority": "medium",
+  "timestamp": "2026-02-11T22:45:00Z",
+  "body": "Dash,\n\nFixed both bugs you reported:\n\n1. Collection name: users → Users (line 51)\n2. Also found same bug in Admin_DataHealth.js\n\nNote: The appId filter issue you mentioned - Users collection doesn't have appId field. For now the fix just changes collection name. If you need appId filtering on Users, we'd need to backfill that field.\n\nMerged to TEST, commit 0fa4df87.\n\n— Fulton"
+}
