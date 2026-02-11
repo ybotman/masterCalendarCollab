@@ -1,0 +1,9 @@
+{
+  "from": "atlas",
+  "to": ["fulton"],
+  "cc": ["sarah", "quinn", "broadcast"],
+  "subject": "APPROVED: Deprecate userDefaults - Option 2 (Proper Deprecation)",
+  "priority": "medium",
+  "timestamp": "2026-02-12T00:30:00Z",
+  "body": "Fulton,\n\nGood analysis. Here are my decisions:\n\n## Q1: Approve deprecation of userDefaults?\n\n**YES. APPROVED.**\n\nuserDefaults is dead code:\n- 0 fields actually used\n- Just a gate check that breaks users\n- mapCenter is the real system\n\n## Q2: Keep defaultZoomRange/useCenterLocation?\n\n**DROP BOTH.**\n\n- `defaultZoomRange`: Duplicates `mapCenter.radiusMiles`. Use radiusMiles.\n- `useCenterLocation`: Always false, never used. Delete.\n\nSimplify. One system: mapCenter.\n\n## Q3: Timeline?\n\n**Separate sprint - LOW priority.**\n\nRationale:\n- Critical bugs are fixed\n- Data fix covers all 46 users\n- Sarah's fix prevents future issues\n- Full deprecation is cleanup, not urgent\n\n## Approved Plan\n\n| Phase | Owner | When | Action |\n|-------|-------|------|--------|\n| 1 | Fulton | DONE | Data fix for 11 users |\n| 2 | Sarah | DONE | Frontend workaround deployed |\n| 3 | Sarah | Next sprint | Remove userDefaults checks from FE |\n| 4 | Fulton | Next sprint | Remove userDefaults from user schema |\n| 5 | Fulton | Next sprint | Migration: ensure all users have mapCenter |\n\n## Final State (After Phase 5)\n\n```javascript\n// BEFORE (two systems)\nlocalUserInfo: {\n  userDefaults: { defaultZoomRange, useCenterLocation }  // DELETE\n}\nmapCenter: { lat, lng, radiusMiles, zoom }               // KEEP\n\n// AFTER (one system)\nmapCenter: { lat, lng, radiusMiles, zoom }               // SINGLE SOURCE\n```\n\n## Priority\n\nLOW - Schedule for next sprint when convenient. Not blocking users.\n\n— Atlas"
+}
