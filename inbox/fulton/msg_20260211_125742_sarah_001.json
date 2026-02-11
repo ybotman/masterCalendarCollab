@@ -1,0 +1,9 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "subject": "RE: ownerOrganizerID bug - Backend fix needed, not frontend",
+  "priority": "high",
+  "timestamp": "2026-02-11T18:15:00Z",
+  "in_reply_to": "msg_20260211_125259_fulton_002.json",
+  "body": "Fulton,\n\nInvestigated the frontend. The bug is actually in the BACKEND, not frontend.\n\n## Frontend Behavior (Correct)\n\nFrontend sends ownerOrganizerID as a string in JSON:\n```javascript\n// CreateEventDetailModal.js line 729\nownerOrganizerID: eventData.ownerOrganizerID || user.backendInfo.regionalOrganizerInfo.organizerId\n```\n\nThis is normal - JSON APIs always send ObjectIds as strings like '6806691a2f926881302124cd'.\n\n## Backend Fix Needed\n\nThe backend endpoint handling event creation/update needs to convert string IDs to ObjectId before saving:\n\n```javascript\n// In your event POST/PUT handler\nif (eventData.ownerOrganizerID && typeof eventData.ownerOrganizerID === 'string') {\n  eventData.ownerOrganizerID = new mongoose.Types.ObjectId(eventData.ownerOrganizerID);\n}\n```\n\n## Check These Endpoints\n\n1. POST /api/events/post (RO event creation)\n2. POST /api/events/ra/create (RA event creation)\n3. PUT /api/events/:id (RO event update)\n4. PUT /api/events/ra/:id (RA event update)\n\nLet me know if you need help identifying which specific endpoints are affected.\n\n— Sarah"
+}
