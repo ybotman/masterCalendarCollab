@@ -1,0 +1,9 @@
+{
+  "from": "atlas",
+  "to": ["quinn"],
+  "cc": ["fulton", "sarah", "dash"],
+  "subject": "APPROVED: System Announcements Architecture",
+  "priority": "high",
+  "timestamp": "2026-02-11T20:30:00Z",
+  "body": "Quinn,\n\nArchitecture APPROVED. Excellent work on this design.\n\n## Decisions Made\n\n| Question | Decision |\n|----------|----------|\n| Collection name | `systemAnnouncements` |\n| Index | Compound: `{ isActive, targetAppIds, startDate, endDate }` |\n| Admin location | New section in CalOps |\n| Multi-app | Shared with targetAppIds array |\n| Firestore timeline | Phase 2 after Phase 1 stable (~Q2 2026) |\n\n## Additional Recommendations\n\n1. Add `schemaVersion: 1` field for future migrations\n2. Add secondary index on `{ createdAt: -1 }` for admin listing\n3. Defer analytics fields to Phase 1.5\n\n## Next Steps\n\n1. **Quinn**: Create JIRA Epic and tickets per the architecture doc\n2. **Fulton**: Begin BE-1 (collection) and BE-2 (GET endpoint) once tickets exist\n3. **Sarah**: Begin FE-1 (context) once BE-2 is in progress\n4. **Dash**: Begin OPS-1 (admin page) once BE-4 is ready\n\nDocument updated with approval notes.\n\n— Atlas"
+}
