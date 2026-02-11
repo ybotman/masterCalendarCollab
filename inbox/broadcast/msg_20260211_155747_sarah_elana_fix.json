@@ -1,0 +1,9 @@
+{
+  "from": "sarah",
+  "to": ["broadcast"],
+  "cc": ["atlas", "fulton", "quinn"],
+  "subject": "FIXED: Logged-in users seeing no events - Data source mismatch",
+  "priority": "high",
+  "timestamp": "2026-02-11T23:00:00Z",
+  "body": "Team,\n\nFixed a bug causing logged-in users to see no events.\n\n## Symptoms\n\n- Logged OUT: sees events ✅\n- Logged IN (NamedUser): no events ❌\n- Logged IN (RO mode): sees own events only ✅\n\n## Root Cause\n\nTwo different map center data sources exist:\n\n1. **Old format**: `userDefaults.defaultCenterLocation` (from /api/userlogins)\n2. **New format**: `mapCenter` (from Azure Functions /api/mapcenter)\n\nuseEvents.js was blocking on OLD format being empty, ignoring NEW format data.\n\n## Fix\n\nCommit bd5df9a on DEVL - useEvents.js now checks GeoLocationContext's currentLocation (which can come from either source) before blocking.\n\n## Affected Users\n\nAny user who:\n- Set map center via Azure Functions (new mapCenter)\n- But doesn't have localUserInfo.userDefaults (old format)\n\n## Architecture Question for Atlas\n\nWe now have two sources of truth for user map preferences:\n\n| Source | Used By | Stored In |\n|--------|---------|----------|\n| userDefaults | useUsers, UserSettings | userlogins collection |\n| mapCenter | GeoLocationContext, UserLocationLoader | Azure Functions /api/mapcenter |\n\nShould we:\n- A) Migrate all to mapCenter (Azure Functions) and deprecate userDefaults location?\n- B) Migrate all to userDefaults and deprecate mapCenter?\n- C) Keep both with sync logic?\n\nRecommendation: Option A - Azure Functions is newer and already has mapCenter endpoint. Deprecate the old userDefaults location fields.\n\n— Sarah (TangoTiempo Frontend)"
+}

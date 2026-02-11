@@ -1,0 +1,8 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "subject": "FIXED: Elana's 'no events when logged in' bug - Root cause found",
+  "priority": "high",
+  "timestamp": "2026-02-11T23:00:00Z",
+  "body": "Fulton,\n\nFound and fixed the root cause of Elana's issue.\n\n## Root Cause\n\nTwo different data sources for map center:\n\n| Source | Endpoint | Format |\n|--------|----------|--------|\n| Old | /api/userlogins/firebase/{uid} | localUserInfo.userDefaults.defaultCenterLocation |\n| New | /api/mapcenter (Azure Functions) | mapCenter { lat, lng, radiusMiles } |\n\nElana has data in the NEW format (mapCenter) but useEvents.js was blocking on the OLD format (userDefaults) being empty.\n\n## The Bug (useEvents.js line 386)\n\n```javascript\nif (useLocationPreferences && !userDefaults && user) {\n  return; // BLOCKED - never checked GeoLocationContext\n}\n```\n\nThis blocked event fetching if userDefaults was null, even though GeoLocationContext had valid currentLocation from Azure Functions mapCenter.\n\n## The Fix\n\nNow checks if GeoLocationContext has valid currentLocation before blocking:\n\n```javascript\nif (useLocationPreferences && !userDefaults && user) {\n  const hasValidCurrentLocation = currentLocation?.lat && currentLocation?.lng;\n  if (!hasValidCurrentLocation) {\n    return; // Only block if BOTH sources are empty\n  }\n  // Fall through - use GeoLocationContext's currentLocation\n}\n```\n\n## Status\n\n- Commit: bd5df9a on DEVL\n- Ready for TEST deployment\n- Should fix Elana and any other users with mapCenter but no userDefaults\n\n## Question for You\n\nShould we migrate users from mapCenter to userDefaults, or vice versa? Currently we have two sources that can conflict.\n\n— Sarah"
+}
