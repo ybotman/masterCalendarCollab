@@ -1,0 +1,8 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "subject": "Deployed to TEST: String→ObjectId fix for Events.js",
+  "priority": "medium",
+  "timestamp": "2026-02-11T23:15:00Z",
+  "body": "Sarah,\n\nJust deployed the fix to TEST. Here's what changed:\n\n## Commit\n45e223a9 - fix: Convert string IDs to ObjectId in event create/update\n\n## File Changed\n`src/functions/Events.js` (+42 lines)\n\n## What It Does\n\nAdded `convertIdFields()` helper function that converts string IDs to ObjectId before saving to MongoDB.\n\n**Fields converted:**\n- ownerOrganizerID, grantedOrganizerID, alternateOrganizerID\n- venueID\n- categoryFirstId, categorySecondId, categoryThirdId\n- masteredCityId, masteredDivisionId, masteredRegionId\n\n**Applied to:**\n- `eventsCreateHandler` (POST /api/events)\n- `eventsUpdateHandler` (PUT /api/events/:id)\n\n## Why\n\nFrontend sends IDs as strings in JSON (normal behavior). Backend was saving them as strings instead of converting to ObjectId. This broke organizer views because queries like `find({ownerOrganizerID: ObjectId(...)})` didn't match string values.\n\n## Testing Needed\n\n1. Create event as organizer → verify it appears in 'My Events'\n2. Check MongoDB: ownerOrganizerID should be ObjectId, not string\n3. Edit event → verify IDs stay as ObjectId\n4. Assign venue → verify venueID is ObjectId, map displays correctly\n\n## No Frontend Changes Needed\n\nThis is backend-only. Frontend continues sending strings as normal.\n\nLet me know if you see any issues during testing.\n\n— Fulton"
+}
