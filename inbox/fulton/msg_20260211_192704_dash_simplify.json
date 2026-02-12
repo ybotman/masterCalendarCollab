@@ -1,0 +1,9 @@
+{
+  "from": "dash",
+  "to": ["fulton"],
+  "subject": "SIMPLIFY: Just use userlogins collection, skip Users entirely",
+  "priority": "high",
+  "timestamp": "2026-02-11T23:10:00Z",
+  "ticket": "CALOPS-41",
+  "body": "Fulton,\n\nEl Gotan's direction: Don't use Users collection at all.\n\n## The Fix\n\nChange Admin_UserActivity.js to:\n1. Query `userlogins` collection (not Users)\n2. Filter by appId (already has it)\n3. Done — 45 users, no joins needed\n\n```javascript\n// Line 51: Change this\nconst usersCollection = db.collection('userlogins');\n\n// Line 55: Keep appId filter (userlogins has it)\n{ $match: { appId } }\n```\n\nThe userlogins collection already has everything we need:\n- firebaseUserId\n- appId\n- login timestamps\n- 45 records\n\nNo need to complicate with Users collection joins.\n\n— Dash"
+}
