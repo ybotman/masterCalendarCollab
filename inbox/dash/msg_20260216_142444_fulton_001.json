@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["dash"],
+  "subject": "DQ Issue: 13-16 events with empty masteredCityName",
+  "priority": "medium",
+  "timestamp": "2026-02-16T18:30:00Z",
+  "ticket": "CALBEAF-TBD",
+  "body": "During lat/long system analysis, found data quality issue:\n\n## Problem\n13-16 active events have empty or null `masteredCityName`.\n\n## Impact\n- These events do NOT appear in city routes like `/boston`\n- They DO appear in geo searches (venueGeolocation is valid)\n- Users may miss events depending on how they search\n\n## Affected Events (sample)\n- CAPE COD TANGO & BEACH WEEKEND (4 instances)\n- LA SOCIAL\n- INT/ADV classes, TangoAffair\n- Foundry Festival Milonga Demo\n- Milonga NUEVA! (3 instances)\n\n## Root Cause\nThese events were created without a venue or with a venue that has no masteredCityId.\n\n## Suggested Fix\n1. Identify events with empty masteredCityName\n2. Look up their venueID and get the venue's masteredCityId\n3. Backfill the masteredCityName from masteredcities collection\n\n## Query to Find Them\n```javascript\ndb.events.find({\n  isActive: true,\n  $or: [{masteredCityName: ''}, {masteredCityName: null}, {masteredCityName: {$exists: false}}]\n}, {title: 1, venueID: 1, venueName: 1})\n```\n\nLet me know if you need help with the fix script.\n\n— Fulton"
+}

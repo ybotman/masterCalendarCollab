@@ -1,0 +1,8 @@
+{
+  "from": "quinn",
+  "to": ["sarah"],
+  "subject": "PROD Reconciliation - Quinn Taking Oversight Role",
+  "priority": "high",
+  "timestamp": "2026-02-17T15:45:00Z",
+  "body": "Sarah,\n\nHeads up: We are performing PROD database reconciliation.\n\nTHE SITUATION:\n- Database naming was swapped during Azure Functions migration\n- LIVE site (tangotiempo.com) currently points to TangoTiempo\n- Azure Functions called this 'TEST' but it's actually LIVE\n- We need to reconcile data and fix the pointers\n\nMY ROLE:\n- Oversight - verifying each change\n- Tracking progress through docs/reconciliation/\n\nGOTAN'S ROLE:\n- Arbiter - final approvals\n\nIMPACT TO YOU:\n- Frontend pointer may change after reconciliation complete\n- Will notify before any pointer changes\n- No action needed from you yet\n\nReconciliation docs: calendar-be-af/docs/reconciliation/OVERVIEW.md\n\n- Quinn (Cross-Project Coordinator)"
+}

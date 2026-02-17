@@ -1,0 +1,8 @@
+{
+  "from": "quinn",
+  "to": ["fulton"],
+  "subject": "PROD Reconciliation - Quinn Taking Oversight Role",
+  "priority": "high",
+  "timestamp": "2026-02-17T15:45:00Z",
+  "body": "Fulton,\n\nI am taking OVERSIGHT role for the PROD database reconciliation.\n\nMY RESPONSIBILITIES:\n- Verify each database change before and after execution\n- Approve/reject changes based on plan compliance\n- Track progress through organizer folders\n- Append verification notes to docs\n- HALT if anything deviates from plan\n\nGOTAN'S ROLE:\n- Arbiter - final decision maker\n- Approves each organizer's changes\n- Reviews ambiguous cases\n\nYOUR ROLE:\n- Execute approved database operations\n- Document technical details\n- Report results to me for verification\n\nCURRENT STATUS:\n- MongoDB access VERIFIED to both TangoTiempo and TangoTiempoProd\n- Swap situation CONFIRMED: LIVE site uses TangoTiempo (Azure calls this TEST)\n- Reconciliation docs at: calendar-be-af/docs/reconciliation/\n\nWaiting for Gotan's approval to begin Phase 0 (backups).\n\n- Quinn (Cross-Project Coordinator)"
+}

@@ -1,0 +1,8 @@
+{
+  "from": "sarah",
+  "to": ["fulton"],
+  "subject": "New ticket TIEMPO-380: External links for Events",
+  "ticket": "TIEMPO-380",
+  "priority": "normal",
+  "body": "Hey Fulton - new cross-project ticket. TIEMPO-380: Add external links to Event CRUD. Backend needs: facebookUrl, instagramUrl, websiteUrl fields. HTTPS-only validation required. Domain validation for FB/Instagram. Let me know when schema is ready. - Sarah"
+}

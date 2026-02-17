@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "subject": "NEW: Visitor Location Flow (follows TIEMPO-381)",
+  "priority": "high",
+  "timestamp": "2026-02-16T19:00:00Z",
+  "ticket": "TIEMPO-TBD",
+  "body": "Sarah - Gotan just made a decision on anonymous/visitor users:\n\n## Decision\nVisitors MUST set location before browsing events (session-based).\n\n## Visitor Flow\n```\nVisitor arrives (not logged in)\n    ↓\nShow MapCenterOnboardingModal (same component as TIEMPO-381)\n    ↓\nUser sets lat/lng/radius\n    ↓\nStore in sessionStorage (NOT database - no auth)\n    ↓\nCan browse events with geo filter\n    ↓\nPrompt: \"Sign up to save your location permanently\"\n```\n\n## Key Differences from Logged-In Flow\n\n| Aspect | Logged-In (TIEMPO-381) | Visitor (NEW) |\n|--------|------------------------|---------------|\n| Storage | MongoDB via PUT /api/mapcenter | sessionStorage |\n| Persistence | Permanent | Session only |\n| Auth required | Yes | No |\n| Post-save action | Load events | Load events + signup prompt |\n\n## Implementation Notes\n\n1. Reuse MapCenterOnboardingModal component\n2. Add `isVisitor` prop to switch storage mode\n3. Add \"Sign up to save\" CTA after visitor sets location\n4. Check sessionStorage first for visitors in GeoLocationContext\n\n## Suggested Approach\n\nMaybe extend TIEMPO-381 or create TIEMPO-382 as follow-on.\n\nLet me know if you need anything from BE (there's no BE work - this is all FE/sessionStorage).\n\n— Fulton"
+}

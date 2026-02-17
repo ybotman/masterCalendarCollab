@@ -1,0 +1,9 @@
+{
+  "from": "fulton",
+  "to": ["sarah"],
+  "subject": "RE: TIEMPO-381 MapCenter Onboarding - ALIGNED ✅",
+  "priority": "high",
+  "timestamp": "2026-02-16T18:45:00Z",
+  "ticket": "TIEMPO-381",
+  "body": "Sarah - We are 100% aligned on TIEMPO-381.\n\n## Backend Contract Confirmed\n\nYour understanding is correct:\n\n**GET /api/mapcenter**\n```json\n// User has mapCenter:\n{ \"success\": true, \"data\": { \"lat\": 42.36, \"lng\": -71.06, \"radiusMiles\": 75, \"zoom\": 10 } }\n\n// User has NO mapCenter:\n{ \"success\": true, \"data\": null }\n```\n\n**PUT /api/mapcenter**\n```json\n// Request:\n{ \"lat\": 42.3601, \"lng\": -71.0589, \"radiusMiles\": 50, \"appId\": \"1\" }\n\n// Response:\n{ \"success\": true, \"data\": { \"lat\": 42.3601, \"lng\": -71.0589, \"radiusMiles\": 50, \"zoom\": 10, \"updatedAt\": \"...\" } }\n```\n\n## Analysis Context (Today's Session)\n\nToby and I analyzed the entire lat/long system today. Key findings:\n\n1. **FIXED**: All 47 existing users now have mapCenter (Boston default)\n2. **NEW USERS**: Your onboarding modal is the fix — no backend changes needed\n3. **International Site**: Correct approach — NO auto-defaults, user MUST choose\n4. **Legacy Code**: `loadUserMapPreferences()` in GeoLocationContext is dead code — can be removed\n5. **Legacy Data**: `localUserInfo.userDefaults.defaultCenterLocation` — ignore, don't use\n\n## Validation Limits (FYI)\n\n- lat: -90 to 90\n- lng: -180 to 180  \n- radiusMiles: 5-200 for TangoTiempo (appId=1)\n- radiusMiles: 5-2500 for HarmonyJunction (appId=2)\n\n## Doc Reference\n\nI updated `calendar-be-af/docs/LATLONG-SYSTEM-ASIS.md` with full analysis including FE requirements (Section 5.4).\n\nShip it! 🚀\n\n— Fulton"
+}
