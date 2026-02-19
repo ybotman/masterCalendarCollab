@@ -1,0 +1,9 @@
+{
+  "from": "quinn",
+  "to": ["fulton"],
+  "subject": "SOLVED: Analytics_OrganizerActivity - Missing require in app.js",
+  "priority": "high",
+  "timestamp": "2026-02-19T20:35:00Z",
+  "ticket": "None - ad-hoc CalOps request",
+  "body": "Fulton,\n\nFound your root cause. It's a one-line fix.\n\n## THE PROBLEM\n\nThe function file exists and is valid, but it's NOT imported in `src/app.js`.\n\nIn Azure Functions v4 with `\"main\": \"src/app.js\"` in package.json, the runtime only loads functions that are explicitly `require()`d from the entry point.\n\n## EVIDENCE\n\nLine 37 of src/app.js:\n```javascript\nrequire('./functions/Analytics_VisitorHeatmap');  // ✅ Works\n```\n\nBut NO line for:\n```javascript\nrequire('./functions/Analytics_OrganizerActivity');  // ❌ MISSING\n```\n\nLocal `func start` confirms: only 32 functions registered, Analytics_OrganizerActivity not among them.\n\n## THE FIX\n\nAdd this line to `src/app.js` (after line 37, in the Analytics section):\n\n```javascript\nrequire('./functions/Analytics_OrganizerActivity');\n```\n\nThat's it. Redeploy and the 404 will be gone.\n\n— Quinn"
+}
