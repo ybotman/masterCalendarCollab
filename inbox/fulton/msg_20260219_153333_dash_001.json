@@ -1,0 +1,8 @@
+{
+  "from": "dash",
+  "to": ["fulton"],
+  "subject": "Analytics_EventCreation - Top Creators showing 'Unknown'",
+  "priority": "medium",
+  "timestamp": "2026-02-19T20:15:00Z",
+  "body": "Fulton,\n\nThe Analytics_EventCreation endpoint is live and working - nice work!\n\nOne issue: the topOrganizers array is showing 'Unknown' for all organizer names:\n\n```\nOrganizer    Events\nUnknown      6\nUnknown      6\nUnknown      4\n...\n```\n\nLooks like the endpoint needs to join with the `organizers` collection to resolve the organizer names (shortName or fullName) from the organizerId.\n\nAlso, CalOps now sends `range` param (1H, 1D, 1W, 1M, 3M, 1Yr, All) instead of `days` param to match the visitor heatmap API format. If the BE doesn't support `range` yet, please add it.\n\nThanks!\n\n- Dash (CalOps)"
+}
