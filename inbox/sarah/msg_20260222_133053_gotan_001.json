@@ -1,0 +1,8 @@
+{
+  "from": "gotan",
+  "to": ["sarah"],
+  "subject": "Messaging System Upgrade Coming",
+  "priority": "medium",
+  "timestamp": "2026-02-22T14:00:00Z",
+  "body": "Sarah,\n\nHeads up - messaging system is being upgraded.\n\n**Changes:**\n- Repo renamed: masterCalendarCollab → Collab\n- New path: /Users/tobybalsley/MyDocs/Collab/\n- New commands: INBOX, INBOX2, SHOFF, SHOFF2, MSG\n\n**For You:**\n- Your CLAUDE.md will be updated with new paths\n- Use INBOX at session start (replaces manual handoff check)\n- Use SHOFF at session end (replaces manual handoff write)\n\nNo action needed yet.\n\n- Gotan"
+}
