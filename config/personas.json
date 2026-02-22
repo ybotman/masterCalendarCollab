@@ -1,0 +1,122 @@
+{
+  "personas": [
+    {
+      "name": "gotan",
+      "role": "Overseer",
+      "project": "MyDocs",
+      "path": "/Users/tobybalsley/MyDocs/",
+      "active": true
+    },
+    {
+      "name": "quinn",
+      "role": "Cross-Project Coordinator",
+      "project": "MasterCalendar",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/MasterCalendar/",
+      "active": true
+    },
+    {
+      "name": "sarah",
+      "role": "Frontend Developer",
+      "project": "tangotiempo.com",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/MasterCalendar/tangotiempo.com/",
+      "active": true
+    },
+    {
+      "name": "fulton",
+      "role": "Backend Developer",
+      "project": "calendar-be-af",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/MasterCalendar/calendar-be-af/",
+      "active": true
+    },
+    {
+      "name": "harmony",
+      "role": "Frontend Developer",
+      "project": "harmonyjunction.org",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/MasterCalendar/harmonyjunction.org/",
+      "active": true
+    },
+    {
+      "name": "dash",
+      "role": "Operations",
+      "project": "calops",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/MasterCalendar/calops/",
+      "active": true
+    },
+    {
+      "name": "tempo",
+      "role": "Developer",
+      "project": "NTTT",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/NTTT/",
+      "active": true
+    },
+    {
+      "name": "atlas",
+      "role": "System Architect",
+      "project": "MasterCalendar",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/MasterCalendar/",
+      "active": true
+    },
+    {
+      "name": "cord",
+      "role": "Frontend Developer",
+      "project": "harmonyjunction.org",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/MasterCalendar/harmonyjunction.org/",
+      "active": true,
+      "note": "Alias for harmony"
+    },
+    {
+      "name": "claw",
+      "role": "Pipeline Developer",
+      "project": "fb-conditioner",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/MasterCalendar/ai-discovered/via-openclaw/fb-conditioner/",
+      "active": true
+    },
+    {
+      "name": "porter",
+      "role": "Event Runner",
+      "project": "ai-discovered",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/MasterCalendar/ai-discovered/",
+      "active": true
+    },
+    {
+      "name": "jockey",
+      "role": "Developer",
+      "project": "TangoDJ",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/TangoDJ/",
+      "active": false,
+      "note": "Planned"
+    },
+    {
+      "name": "christopher",
+      "role": "Developer",
+      "project": "HDTS",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/HDTS/",
+      "active": false,
+      "note": "Planned"
+    },
+    {
+      "name": "troilo",
+      "role": "Developer",
+      "project": "Tangology",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/Tangology/",
+      "active": false,
+      "note": "Planned"
+    },
+    {
+      "name": "molar",
+      "role": "Developer",
+      "project": "Dental",
+      "path": "/Users/tobybalsley/MyDocs/AppDev/Dental/",
+      "active": false,
+      "note": "TBD"
+    }
+  ],
+  "special": [
+    {
+      "name": "broadcast",
+      "note": "Messages to all personas"
+    }
+  ],
+  "updated": "2026-02-22",
+  "updatedBy": "gotan"
+}
